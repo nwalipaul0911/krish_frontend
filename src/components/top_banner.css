@@ -1,0 +1,13 @@
+.top-banner{
+  background: rgb(183, 181, 181);
+  height: fit-content;
+}
+.banner-small-text{
+  font-size: 2rem;
+}
+.banner-large-text{
+  font-size: 5rem;
+}
+.banner-description{
+  font-size: 1.5rem;
+}
