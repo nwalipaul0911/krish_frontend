@@ -4,3 +4,6 @@ a>.fa-brands:hover{
   transition-timing-function: ease-in;
   position:relative
 }
+.footer-img{
+  filter: grayscale(10%);
+}

@@ -1,12 +1,19 @@
 import "./top_banner.css";
 import test_image from "../assets/images/wepik-export-20230730124122ESA6.png";
+import { useEffect, useState } from "react";
 const TopBanner = () => {
-  const banner_image = test_image;
-  const banner_Small_text = "Make-up kit";
-  const banner_large_text = "5% discount";
-  const banner_percentage = "5";
-  const banner_button_text = "Buy now";
-  const banner_description = "Show up in style, Use quality product from our store.";
+  const [banner, setBanner] = useState({});
+  const [bannerImg, setBannerImg] = useState(null)
+  const url = import.meta.env.VITE_BACKEND_URL;
+  useEffect(() => {
+    getBannerdetails();
+  }, []);
+  const getBannerdetails = async () => {
+    let res = await fetch(`${url}/top-banner`);
+    let data = await res.json();
+    setBanner(data.topbanner[0]);
+  };
+
 
   return (
     <>
@@ -14,15 +21,15 @@ const TopBanner = () => {
         <div className="row g-0">
           <div className="col-12 col-md-6 pt-5">
             <div className="ps-5">
-              <span className="banner-small-text">{banner_Small_text}</span>
+              <span className="banner-small-text">{banner.title}</span>
               <h1 className="text-white banner-large-text">
-                {banner_large_text}
+                {banner.large_text}
               </h1>
-              <p className="banner-description">{banner_description}</p>
+              <p className="banner-description">{banner.small_text}</p>
 
               <div className="pt-3">
-                <button className="btn btn-danger rounded-pill px-5">
-                  {banner_button_text}
+                <button className="btn btn-danger rounded-pill px-5 shadow">
+                  {banner.button_text}
                 </button>
               </div>
             </div>
@@ -30,7 +37,7 @@ const TopBanner = () => {
           <div className="col-12 col-md-6">
             <div className="mx-auto">
               <img
-                src={banner_image}
+                src={test_image}
                 alt="..."
                 className="banner-image img-fluid"
               />

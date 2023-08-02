@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Shop from "../pages/shop/shop";
 import Checkout from "../pages/checkout/checkout";
 import Order from "../pages/order/order";
+import Item from "../pages/product/item"
 import App from "../App.jsx";
 const Route = () => {
   const url = import.meta.env.VITE_BACKEND_URL
@@ -29,6 +30,10 @@ const Route = () => {
           path: "order",
           element: <Order />,
         },
+        {
+          path: 'products/:id',
+          element: <Item />
+        }
       ],
     },
   ]);

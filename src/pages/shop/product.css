@@ -4,6 +4,9 @@
 .product-card:hover .product-button{
   visibility: visible;
 }
+.card:hover{
+  cursor: pointer;
+}
 .card-img{
   background-color: rgb(183, 181, 181);;
 }

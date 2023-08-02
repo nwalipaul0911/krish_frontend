@@ -14,9 +14,9 @@ const Order = () => {
   const getTotal = (data) => {
     return data.reduce(
       (prev, curr) =>
-        prev + parseFloat((curr.quantity * curr.price).toFixed(2)),
+        prev + parseFloat((curr.quantity * curr.price)),
       0
-    );
+    ).toFixed(2);
   };
   const subtotal = useMemo(() => getTotal(cart_items), [cart_items]);
   const componentProps = {
@@ -35,7 +35,7 @@ const Order = () => {
 
   return (
     <>
-      <div className="container-fluid cart-items-list mt-3">
+      <div className="container-fluid  mt-3">
         <div className="row">
           <div className="col-md-4 col-sm-12 order-md-2">
             <div className="col-10 mx-auto">
@@ -144,7 +144,7 @@ const Order = () => {
                     <div className="row mb-3">
                       <div className="col-sm-3 col-md-2">
                         <label htmlFor="subtotal" className="fs-3">
-                          Total :
+                          Total:
                         </label>
                       </div>
                       <div className="col-auto">

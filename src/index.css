@@ -9,4 +9,12 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
-
+.bg-danger{
+  background-color: #e9018d !important;
+}
+.btn-danger{
+  background-color: #e9018d;
+}
+.btn-danger:hover{
+  background-color: #e9018cae;
+}
