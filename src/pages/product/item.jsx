@@ -22,7 +22,7 @@ const Item = () => {
         <div className="row my-5">
           <div className="col-12 col-md-6">
             <div className="col-10 ms-md-auto rounded shadow card">
-              <img src={item_img} alt="" className="img-fluid" />
+              <img src={item.image} alt="" className="img-fluid" />
             </div>
           </div>
           <div className="col-12 col-md-6">
