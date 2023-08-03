@@ -1,10 +1,17 @@
 import "./top_banner.css";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import test_image from "../assets/images/wepik-export-20230730124122ESA6.png";
-import { useEffect, useState } from "react";
-const TopBanner = () => {
+import { useSelector, useDispatch } from "react-redux";
+import { modifyCart } from "../slices/cart_slice";
+const TopBanner = ({ store }) => {
   const [banner, setBanner] = useState({});
-  const [bannerImg, setBannerImg] = useState(null)
+  const [bannerImg, setBannerImg] = useState(null);
+  const product = store.products.find((product) => product.id == banner.product);
+  // console.log(product)
   const url = import.meta.env.VITE_BACKEND_URL;
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   useEffect(() => {
     getBannerdetails();
   }, []);
@@ -13,7 +20,6 @@ const TopBanner = () => {
     let data = await res.json();
     setBanner(data.topbanner[0]);
   };
-
 
   return (
     <>
@@ -28,7 +34,13 @@ const TopBanner = () => {
               <p className="banner-description">{banner.small_text}</p>
 
               <div className="pt-3">
-                <button className="btn btn-danger rounded-pill px-5 shadow">
+                <button
+                  className="btn btn-danger rounded-pill px-5 shadow"
+                  onClick={() => {
+                    navigate(`/order`);
+                    dispatch(modifyCart({ ...product, quantity: 1 }));
+                  }}
+                >
                   {banner.button_text}
                 </button>
               </div>
@@ -37,7 +49,7 @@ const TopBanner = () => {
           <div className="col-12 col-md-6">
             <div className="mx-auto">
               <img
-                src={test_image}
+                src={product?.image}
                 alt="..."
                 className="banner-image img-fluid"
               />

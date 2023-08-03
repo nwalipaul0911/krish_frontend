@@ -1,36 +1,79 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import CartItem from "../../components/cart_item";
 import { useMemo, useState } from "react";
 import { PaystackButton } from "react-paystack";
+import { clearCart } from "../../slices/cart_slice";
+import { useNavigate } from "react-router-dom";
 import "./order.css";
 const Order = () => {
+  const url = import.meta.env.VITE_BACKEND_URL
   const cart_items = useSelector((state) => state.cart.value);
   const [email, setEmail] = useState("");
   const [recipient, setRecipient] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [state, setCustomerState] = useState("");
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const getTotal = (data) => {
-    return data.reduce(
-      (prev, curr) =>
-        prev + parseFloat((curr.quantity * curr.price)),
-      0
-    ).toFixed(2);
+    return data
+      .reduce((prev, curr) => prev + parseFloat(curr.quantity * curr.price), 0)
+      .toFixed(2);
   };
-  const subtotal = useMemo(() => getTotal(cart_items), [cart_items]);
+  const subtotal = useMemo(
+    () =>
+      cart_items
+        .reduce(
+          (prev, curr) => prev + parseFloat(curr.quantity * curr.price),
+          0
+        )
+        .toFixed(2),
+    [cart_items]
+  );
+  const amount = Math.ceil(subtotal)*100;
+  const saveOrder = async()=>{
+    const res = await fetch(`${url}/create_order`, {
+      method: 'POST',
+      headers : {
+        'Content-type': 'application/json'
+      },
+      body : JSON.stringify({
+        email : email,
+        recipient : recipient,
+        phone: phone,
+        address: address,
+        state: state,
+        cart_items: cart_items,
+        total_amount: amount
+      })
+    })
+    if(res.status == 201){
+      const data = await res.json()
+      dispatch(clearCart())
+      
+      navigate(`success/${data.order.slug}`)
+      console.log(data)
+    }
+  }
+  
   const componentProps = {
     email,
-    subtotal,
+    amount,
     metadata: {
       recipient,
       phone,
     },
-    // publicKey,
+    publicKey: import.meta.env.VITE_PAYMENT_KEY,
     text: "Pay Now",
-    onSuccess: () =>
-      alert("Thanks for doing business with us! Come back soon!!"),
+    onSuccess: () => {
+      alert("Thanks for doing business with us! Come back soon!!");
+      saveOrder()
+
+
+    },
     onClose: () => alert("Wait! You need this oil, don't go!!!!"),
+
   };
 
   return (
@@ -60,7 +103,7 @@ const Order = () => {
                   <div className="py-2 cart-header col-12">
                     <h5 className="text-dark">Checkout form</h5>
                   </div>
-                  <form action="" className="col-12 mt-3">
+                  <form className="col-12 mt-3">
                     <div className="row mb-3">
                       <div className="col-sm-3 col-md-2">
                         <label htmlFor="recipient">Fullname :</label>
@@ -149,20 +192,19 @@ const Order = () => {
                       </div>
                       <div className="col-auto">
                         <p name="subtotal" className="fs-3" id="subtotal">
-                          {" "}
-                          {subtotal}
+                          N {subtotal}
                         </p>
                       </div>
                     </div>
-                    <div className="row mb-3">
-                      <div className="col">
-                        <PaystackButton
-                          {...componentProps}
-                          className="btn form-control btn-dark rounded-0"
-                        />
-                      </div>
-                    </div>
                   </form>
+                  <div className="row mb-3">
+                    <div className="col">
+                      <PaystackButton
+                        {...componentProps}
+                        className="btn form-control btn-dark rounded-0"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

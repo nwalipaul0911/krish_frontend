@@ -4,6 +4,7 @@ import Checkout from "../pages/checkout/checkout";
 import Order from "../pages/order/order";
 import Item from "../pages/product/item"
 import App from "../App.jsx";
+import Success from "../pages/order/success";
 const Route = () => {
   const url = import.meta.env.VITE_BACKEND_URL
   const routes = createBrowserRouter([
@@ -33,6 +34,14 @@ const Route = () => {
         {
           path: 'products/:id',
           element: <Item />
+        },
+        {
+          path: 'order/success/:slug',
+          element: <Success />,
+          // loader : async()=>{
+          //   const res = await fetch(`${url}/order/${slug}`)
+
+          // }
         }
       ],
     },

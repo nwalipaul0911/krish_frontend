@@ -13,11 +13,8 @@ const Shop = () => {
   useEffect(() => {
     dispatch(setProducts(store.products));
   }, [store]);
-  const itemsPerPage = 4;
+  const itemsPerPage = 8;
   const [itemOffset, setItemOffset] = useState(0);
-  // Simulate fetching items from another resources.
-  // (This could be items from props; or items loaded in a local state
-  // from an API endpoint with useEffect and useState)
   const endOffset = itemOffset + itemsPerPage;
   const currentItems = store.products.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(store.products.length / itemsPerPage);
@@ -28,7 +25,7 @@ const Shop = () => {
 
   return (
     <>
-      <TopBanner />
+      <TopBanner store={store} />
       <div className="container py-5">
         <div className="row col-md-10 mx-auto">
           <h1 className="text-center text-dark my-4">Our Products</h1>
@@ -58,7 +55,7 @@ const Shop = () => {
           renderOnZeroPageCount={null}
         />
       </div>
-      <BottomBanner />
+      <BottomBanner store={store} />
     </>
   );
 };

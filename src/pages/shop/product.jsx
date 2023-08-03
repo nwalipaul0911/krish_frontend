@@ -1,7 +1,6 @@
 import { useDispatch } from "react-redux";
 import { modifyCart } from "../../slices/cart_slice";
 import { useRef } from "react";
-import test_image from "../../assets/images/wepik-export-20230730124122ESA6.png";
 import "./product.css";
 import { useNavigate } from "react-router-dom";
 
@@ -9,7 +8,6 @@ const Product = ({ product }) => {
   const cartIncrement = useRef(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const image_src = test_image;
   const handleCartIncrement = (e) => {
     e.stopPropagation()
     dispatch(modifyCart({ ...product, quantity: 1 }));
@@ -24,7 +22,7 @@ const Product = ({ product }) => {
           className="card col-10 mx-auto product-card my-4"
           onClick={handleProductNav}
         >
-          <img src={image_src} alt="" className="img-fluid card-img" />
+          <img src={`${product.image}`} alt="" className="img-fluid card-img" />
 
           <div className="pt-2">
             <div className="text-center">
