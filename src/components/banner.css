@@ -1,3 +1,6 @@
+.bottom-banner{
+  background-color: black;
+}
 .top-banner{
   background: rgb(183, 181, 181);
   height: fit-content;
@@ -11,4 +14,9 @@
 }
 .banner-description{
   font-size: 1.5rem;
+}
+.banner-img-container{
+  aspect-ratio: 4/3;
+  display: grid;
+  place-items: center;
 }

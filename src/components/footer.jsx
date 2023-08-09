@@ -9,8 +9,7 @@ const Footer = () => {
             <div className="col-8 ms-md-auto mt-4 mt-lg-0">
               <img src={brand_logo} alt="" className="img-fluid footer-img" />
               <p className="text-muted text-center bg-dark mb-0">
-                All rights reserved. &copy; {" "}
-                {new Date().getFullYear()}
+                All rights reserved. &copy; {new Date().getFullYear()}
               </p>
             </div>
           </div>
@@ -32,19 +31,19 @@ const Footer = () => {
               <p>Tel: 09037399585</p>
               <p>Email: Krishibeauty@gmail.com</p>
               <div className="d-flex justify-content-between ">
-                <a href="" className="text-muted">
-                  <span className="fa-brands fa-facebook"></span>
+                <a href="https://www.facebook.com/krishbeauty" target="_blank">
+                  <i className="fa-brands fa-facebook text-secondary"></i>
                 </a>
-                <a href="" className="text-muted">
-                  <span className="fa-brands fa-instagram"></span>
+                <a href="https://www.tiktok.com/@krish_beauti" target="_blank">
+                  <i className="fa-brands fa-tiktok text-secondary"></i>
                 </a>
-                <a href="" className="text-muted">
-                  <span className="fa-brands fa-tiktok"></span>
+                <a
+                  href="https://www.instagram.com/krish_beauty/"
+                  target="_blank"
+                >
+                  <i className="fa-brands fa-instagram text-secondary"></i>
                 </a>
-                <a href="" className="text-muted">
-                  <span className="fa-brands fa-twitter"></span>
-                </a>
-                <a href="" className="text-muted">
+                <a href="https://wa.me/2349037399585" target="_blank" className="text-muted">
                   <span className="fa-brands fa-whatsapp"></span>
                 </a>
               </div>

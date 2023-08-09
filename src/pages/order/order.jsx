@@ -53,10 +53,8 @@ const Order = () => {
       dispatch(clearCart())
       
       navigate(`success/${data.order.slug}`)
-      console.log(data)
     }
   }
-  
   const componentProps = {
     email,
     amount,
@@ -67,18 +65,14 @@ const Order = () => {
     publicKey: import.meta.env.VITE_PAYMENT_KEY,
     text: "Pay Now",
     onSuccess: () => {
-      alert("Thanks for doing business with us! Come back soon!!");
       saveOrder()
-
-
     },
     onClose: () => alert("Wait! You need this oil, don't go!!!!"),
-
   };
 
   return (
     <>
-      <div className="container-fluid  mt-3">
+      <div className="container-fluid  my-5 py-5">
         <div className="row">
           <div className="col-md-4 col-sm-12 order-md-2">
             <div className="col-10 mx-auto">

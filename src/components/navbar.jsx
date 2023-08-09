@@ -32,13 +32,13 @@ const Navbar = ({ setSidebarState }) => {
         </div>
         <div className="top-bar col-2 ms-auto">
           <div className="top-bar-icons d-flex justify-content-evenly">
-            <a href="">
+            <a href="https://www.facebook.com/krishbeauty" target="_blank">
               <i className="fa-brands fa-facebook text-secondary"></i>
             </a>
-            <a href="">
-              <i className="fa-brands fa-twitter text-secondary"></i>
+            <a href="https://www.tiktok.com/@krish_beauti" target="_blank">
+              <i className="fa-brands fa-tiktok text-secondary"></i>
             </a>
-            <a href="">
+            <a href="https://www.instagram.com/krish_beauty/" target="_blank">
               <i className="fa-brands fa-instagram text-secondary"></i>
             </a>
           </div>

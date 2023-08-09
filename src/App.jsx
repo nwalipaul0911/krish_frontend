@@ -20,7 +20,7 @@ function App() {
     <div className="App">
       <Navbar setSidebarState={setSidebarState} />
       <Cart setSidebarState={setSidebarState} cartView={cartView} />
-      <Outlet />
+      <Outlet context={[setSidebarState]}/>
       <Footer />
     </div>
   );

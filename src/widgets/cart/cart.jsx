@@ -36,13 +36,16 @@ const Cart = ({ setSidebarState, cartView }) => {
         </div>
       </div>
       <div className="mx-auto mt-2 pt-2" style={{ width: "fit-content" }}>
-        <NavLink
-          to="/order"
-          className="btn btn-dark order-btn rounded-0"
-          onClick={setSidebarState}
-        >
-          Place Order
-        </NavLink>
+        {cart_items.length ? (
+          <NavLink
+            to="/order"
+            className={`btn btn-dark order-btn rounded-0`}
+            onClick={setSidebarState}
+          >
+            Place Order
+          </NavLink>
+        ) : (<></>
+        )}
       </div>
     </aside>
   );
