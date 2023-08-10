@@ -4,6 +4,7 @@ import { useState } from "react";
 import test_image from "../../assets/images/cocacola.png";
 import { useDispatch } from "react-redux";
 import { modifyCart } from "../../slices/cart_slice";
+import { useOutletContext } from "react-router-dom";
 
 const Item = () => {
   const dispatch = useDispatch()
@@ -12,9 +13,14 @@ const Item = () => {
   const item = items.find((i) => i.id == item_id);
   const [quantity, setQuantity] = useState(1);
   const navigate = useNavigate()
+  const [ setSidebarState ] = useOutletContext()
   const handleCartIncrement = () => {
     dispatch(modifyCart({ ...item, quantity: quantity }));
   };
+  const handleBuyNow= ()=>{
+    dispatch(modifyCart({ ...item, quantity: quantity }));
+    setSidebarState();
+  }
   const item_img = test_image
   return (
     <>
@@ -42,17 +48,14 @@ const Item = () => {
                       id="quantity"
                       min={1}
                       value={quantity}
-                      onChange={() => setQuantity(quantity++)}
+                      onChange={(e) => setQuantity(e.target.value)}
                     />
                   </div>
                 </form>
               </div>
               <div className="mt-3">
                 <button className="btn btn-dark rounded-0" onClick={handleCartIncrement}>Add to cart</button>
-                <button className="btn btn-danger ms-1 rounded-0" onClick={()=>{
-                  handleCartIncrement()
-                  navigate('/order')
-                }}>
+                <button className="btn btn-danger ms-1 rounded-0" onClick={handleBuyNow}>
                   Buy now
                 </button>
               </div>

@@ -1,75 +1,101 @@
 import { useSelector, useDispatch } from "react-redux";
 import CartItem from "../../components/cart_item";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useRef, useEffect } from "react";
 import { PaystackButton } from "react-paystack";
 import { clearCart } from "../../slices/cart_slice";
 import { useNavigate } from "react-router-dom";
 import "./order.css";
 const Order = () => {
-  const url = import.meta.env.VITE_BACKEND_URL
+  const url = import.meta.env.VITE_BACKEND_URL;
   const cart_items = useSelector((state) => state.cart.value);
-  const [email, setEmail] = useState("");
-  const [recipient, setRecipient] = useState("");
-  const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
-  const [state, setCustomerState] = useState("");
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-
-  const getTotal = (data) => {
-    return data
-      .reduce((prev, curr) => prev + parseFloat(curr.quantity * curr.price), 0)
-      .toFixed(2);
+  const [formData, setFormData] = useState({
+    email: "",
+    recipient: "",
+    phone: "",
+    address: "",
+    state: "",
+    town: "",
+  });
+  const [shippingRates, setShippingRates] = useState([]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleFormData = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
+  // get town options from state
+  const townOptions = shippingRates.filter(
+    (rate) => rate.state == formData.state
+  );
+  // get shipping fee
+  const shippingFee = useMemo(() => {
+    let curr_rate = shippingRates?.find(
+      (rate) => rate.state == formData.state && rate.town == formData.town
+    );
+    if (curr_rate) {
+      return curr_rate.rate;
+    }
+    return 0;
+  }, [formData]);
+
+  // get the subTotal amount of the items in the cart
   const subtotal = useMemo(
     () =>
       cart_items
         .reduce(
-          (prev, curr) => prev + parseFloat(curr.quantity * curr.price),
+          (prev, curr) => prev + (curr.quantity * curr.price),
           0
-        )
-        .toFixed(2),
+        ),
     [cart_items]
   );
-  const amount = Math.ceil(subtotal)*100;
-  const saveOrder = async()=>{
+  // Ready total for paystack api
+  const amount = shippingFee + subtotal;
+
+  // save the order in the backend database
+  const saveOrder = async () => {
     const res = await fetch(`${url}/create_order`, {
-      method: 'POST',
-      headers : {
-        'Content-type': 'application/json'
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
       },
-      body : JSON.stringify({
-        email : email,
-        recipient : recipient,
-        phone: phone,
-        address: address,
-        state: state,
-        cart_items: cart_items,
-        total_amount: amount
-      })
-    })
-    if(res.status == 201){
-      const data = await res.json()
-      dispatch(clearCart())
-      
-      navigate(`success/${data.order.slug}`)
+      body: JSON.stringify({ ...formData, 'cart_items': cart_items, 'total_amount': amount }),
+    });
+    if (res.status == 201) {
+      const data = await res.json();
+      dispatch(clearCart());
+      navigate(`success/${data.order.slug}`);
     }
-  }
+  };
+  // Get shipping rate from backend
+  const getShippingRate = async () => {
+    let res = await fetch(`${url}/shipping`);
+    if (res.status == 200) {
+      let data = await res.json();
+      setShippingRates(data);
+    }
+  };
+
+  // paystack component props for PaystackButton
   const componentProps = {
-    email,
-    amount,
+    email: formData.email,
+    amount: amount * 100,
     metadata: {
-      recipient,
-      phone,
+      recipient: formData.recipient,
+      phone: formData.phone,
     },
     publicKey: import.meta.env.VITE_PAYMENT_KEY,
     text: "Pay Now",
     onSuccess: () => {
-      saveOrder()
+      saveOrder();
     },
     onClose: () => alert("Wait! You need this oil, don't go!!!!"),
   };
-
+  useEffect(() => {
+    getShippingRate();
+  }, []);
   return (
     <>
       <div className="container-fluid  my-5 py-5">
@@ -100,98 +126,152 @@ const Order = () => {
                   <form className="col-12 mt-3">
                     <div className="row mb-3">
                       <div className="col-sm-3 col-md-2">
-                        <label htmlFor="recipient">Fullname :</label>
+                        <label htmlFor="recipient">Fullname:</label>
                       </div>
                       <div className="col">
                         <input
                           type="text"
                           name="recipient"
                           id="recipient"
-                          value={recipient}
+                          value={formData.recipient}
                           className="form-control col-10 rounded-0"
                           placeholder="John Doe"
-                          onChange={(e) => setRecipient(e.target.value)}
+                          onChange={handleFormData}
                         />
                       </div>
                     </div>
                     <div className="row mb-3">
                       <div className="col-sm-3 col-md-2">
-                        <label htmlFor="email">E-mail :</label>
+                        <label htmlFor="email">E-mail:</label>
                       </div>
                       <div className="col">
                         <input
                           type="email"
                           name="email"
                           id="email"
-                          value={email}
+                          value={formData.email}
                           className="form-control col-10 rounded-0"
                           placeholder="JohnDoe35@example.com"
-                          onChange={(e) => setEmail(e.target.value)}
+                          onChange={handleFormData}
                         />
                       </div>
                     </div>
                     <div className="row mb-3">
                       <div className="col-sm-3 col-md-2">
-                        <label htmlFor="phone">Phone :</label>
+                        <label htmlFor="phone">Phone:</label>
                       </div>
                       <div className="col">
                         <input
-                          type="text"
+                          type="tel"
                           name="phone"
                           id="phone"
-                          value={phone}
+                          value={formData.phone}
                           className="form-control col-10 rounded-0"
                           placeholder="080xxxxxxx1"
-                          onChange={(e) => setPhone(e.target.value)}
+                          onChange={handleFormData}
                         />
                       </div>
                     </div>
                     <div className="row mb-3">
                       <div className="col-sm-3 col-md-2">
-                        <label htmlFor="address">Address :</label>
+                        <label htmlFor="address">Address:</label>
                       </div>
                       <div className="col">
                         <input
                           type="text"
                           name="address"
                           id="address"
-                          value={address}
+                          value={formData.address}
                           className="form-control col-10 rounded-0"
                           placeholder="32, example street, example town"
-                          onChange={(e) => setAddress(e.target.value)}
+                          onChange={handleFormData}
                         />
                       </div>
                     </div>
                     <div className="row mb-3">
                       <div className="col-sm-3 col-md-2">
-                        <label htmlFor="address">State :</label>
+                        <label htmlFor="address">State:</label>
                       </div>
                       <div className="col">
-                        <input
-                          type="text"
+                        <select
                           name="state"
                           id="state"
-                          value={state}
+                          defaultValue={formData.state}
                           className="form-control col-10 rounded-0"
                           placeholder="Lagos"
-                          onChange={(e) => setCustomerState(e.target.value)}
-                        />
+                          onChange={handleFormData}
+                        >
+                          <option value='------------'>-------------</option>
+                          {shippingRates.map((rate, index) => (
+                            <option key={index} value={rate.state}>
+                              {rate.state}
+                            </option>
+                          ))}
+                        </select>
                       </div>
                     </div>
                     <div className="row mb-3">
                       <div className="col-sm-3 col-md-2">
-                        <label htmlFor="subtotal" className="fs-3">
-                          Total:
-                        </label>
+                        <label htmlFor="address">Town:</label>
                       </div>
-                      <div className="col-auto">
-                        <p name="subtotal" className="fs-3" id="subtotal">
-                          N {subtotal}
-                        </p>
+                      <div className="col">
+                        <select
+                          name="town"
+                          id="town"
+                          value={formData.town}
+                          className="form-control col-10 rounded-0"
+                          placeholder="Ikeja"
+                          onChange={handleFormData}
+                        >
+                          <option value='------------'>-------------</option>
+                          {townOptions?.map((rate, index) => (
+                            <option key={index} value={rate.town}>
+                              {rate.town}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+                    <div className="bg-light border p-2">
+                      <div className="row">
+                        <div className="col-sm-3 col-md-2">
+                          <label htmlFor="shipping" className="">
+                            Shipping:
+                          </label>
+                        </div>
+                        <div className="col-auto">
+                          <p name="shipping" className="" id="shipping">
+                            N {shippingFee}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col-sm-3 col-md-2">
+                          <label htmlFor="subtotal" className="">
+                            Subtotal:
+                          </label>
+                        </div>
+                        <div className="col-auto">
+                          <p name="subtotal" className="" id="subtotal">
+                            N {subtotal}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col-sm-3 col-md-2">
+                          <label htmlFor="total" className="fs-2">
+                            Total:
+                          </label>
+                        </div>
+                        <div className="col-auto">
+                          <p name="total" className="fs-2" id="total">
+                            N {amount}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </form>
-                  <div className="row mb-3">
+                  <div className="row mb-3 ">
                     <div className="col">
                       <PaystackButton
                         {...componentProps}

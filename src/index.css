@@ -17,7 +17,7 @@
 h1,h2,h3,h4,h5,h6{
   font-family: 'Arapey', serif;
 }
-p,span,small,i, a{
+p,span,small,i, a, label{
   font-family: 'Nanum Myeongjo', serif;
 }
 button, .btn{

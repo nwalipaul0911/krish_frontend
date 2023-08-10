@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useCallback } from "react";
 
+let local_storage = localStorage.getItem("cart_items");
 const initialStateValue = {
-  value: [],
+  value: local_storage ? JSON.parse(local_storage) : [],
 };
 const cartSlice = createSlice({
   name: "cart",
@@ -16,18 +16,23 @@ const cartSlice = createSlice({
       );
       if (index !== -1) {
         state.value[index] = modifiedItem;
+      } else {
+        state.value = [...state.value, action.payload];
       }
-      else{
-        state.value = [...state.value, action.payload]
-      }
+
+      localStorage.setItem("cart_items", JSON.stringify(state.value));
     },
     // reducer to remove an item from the cart
     removeFromCart: (state, action) => {
       state.value = state.value.filter((item) => item.id != action.payload.id);
+      state.value.length > 0
+        ? localStorage.setItem("cart_items", JSON.stringify(state.value))
+        : localStorage.removeItem("cart_items");
     },
     // reducer to clear the cart
     clearCart: (state) => {
       state.value = [];
+      localStorage.removeItem("cart_items");
     },
   },
 });

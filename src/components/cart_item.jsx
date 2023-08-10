@@ -4,18 +4,16 @@ import "./cart_item.css";
 import { modifyCart } from "../slices/cart_slice";
 import { useMemo } from "react";
 import { removeFromCart } from "../slices/cart_slice";
-import test_image from "../assets/images/cocacola.png";
 const CartItem = ({ item }) => {
   const dispatch = useDispatch();
   const subtotal = useMemo(
-    () => (item.price * item.quantity).toFixed(2),
+    () => item.price * item.quantity,
     [item]
   );
   useEffect(() => {
     subtotal == 0 ? dispatch(removeFromCart(item)) : null;
   }, [subtotal]);
 
-  const image_src = test_image;
   return (
     <>
       <div className="cart-item col-10 mx-auto my-3 position-relative pb-3">
@@ -26,7 +24,7 @@ const CartItem = ({ item }) => {
         <div className="container-fluid">
           <div className="row">
             <div className="col-4">
-              <img src={image_src} alt="..." className="img-fluid" />
+              <img src={item.image} alt="..." className="img-fluid" />
             </div>
             <div className="col-8">
               <div className="card-item-footer">
