@@ -4,7 +4,7 @@ import { useMemo, useState, useRef, useEffect } from "react";
 import { PaystackButton } from "react-paystack";
 import { clearCart } from "../../slices/cart_slice";
 import { useNavigate } from "react-router-dom";
-import { MailerSend, EmailParams, Sender, Recipient } from "mailersend";
+// import { MailerSend, EmailParams, Sender, Recipient } from "mailersend";
 import "./order.css";
 const Order = () => {
   const url = import.meta.env.VITE_BACKEND_URL;
@@ -69,35 +69,35 @@ const Order = () => {
       const data = await res.json();
       orderUrl.current = data.slug
       // mailer settings 
-      const mailerSend = new MailerSend({
-        apiKey: import.meta.env.VITE_MAILERSEND_API_KEY,
-      });
+      // const mailerSend = new MailerSend({
+      //   apiKey: import.meta.env.VITE_MAILERSEND_API_KEY,
+      // });
       
-      const sentFrom = new Sender("nwalipaul353@gmail.com", "Krishbeauty");
+      // const sentFrom = new Sender("nwalipaul353@gmail.com", "Krishbeauty");
       
-      const recipients = [
-        new Recipient(formData.email, formData.recipient)
-      ];
+      // const recipients = [
+      //   new Recipient(formData.email, formData.recipient)
+      // ];
       
-      const personalization = [
-        {
-          email: formData.email,
-          data: {
-            order_number: orderUrl.current,
-            account_name : 'krishbeauty',
-            support_email: 'nwalipaul353@gmail.com',
-            order_url: orderUrl.current
-          },
-        }
-      ];
-      const emailParams = new EmailParams()
-      .setFrom(sentFrom)
-      .setTo(recipients)
-      .setReplyTo(sentFrom)
-      .setPersonalization(personalization)
-      .setSubject("Order Confirmation")
-      .setTemplateId(import.meta.env.VITE_MAILERSEND_TEMPLATE_ID);
-      await mailerSend.email.send(emailParams);
+      // const personalization = [
+      //   {
+      //     email: formData.email,
+      //     data: {
+      //       order_number: orderUrl.current,
+      //       account_name : 'krishbeauty',
+      //       support_email: 'nwalipaul353@gmail.com',
+      //       order_url: orderUrl.current
+      //     },
+      //   }
+      // ];
+      // const emailParams = new EmailParams()
+      // .setFrom(sentFrom)
+      // .setTo(recipients)
+      // .setReplyTo(sentFrom)
+      // .setPersonalization(personalization)
+      // .setSubject("Order Confirmation")
+      // .setTemplateId(import.meta.env.VITE_MAILERSEND_TEMPLATE_ID);
+      // await mailerSend.email.send(emailParams);
       dispatch(clearCart());
       navigate(`success/${data.slug}`);
     }
