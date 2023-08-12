@@ -18,7 +18,7 @@ const Order = () => {
     town: "",
   });
   const [shippingRates, setShippingRates] = useState([]);
-  
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleFormData = (event) => {
