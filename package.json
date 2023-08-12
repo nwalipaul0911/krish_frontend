@@ -10,8 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-email/render": "^0.0.7",
     "@reduxjs/toolkit": "^1.9.5",
     "framer-motion": "^10.15.0",
+    "gaxios": "^6.1.0",
+    "mailersend": "^2.2.0",
     "react": "^18.2.0",
     "react-canvas-confetti": "^1.4.0",
     "react-confetti": "^6.1.0",
@@ -21,7 +24,8 @@
     "react-paystack": "^4.0.3",
     "react-redux": "^8.1.1",
     "react-responsive-carousel": "^3.2.23",
-    "react-router-dom": "^6.14.2"
+    "react-router-dom": "^6.14.2",
+    "word-wrap": "^1.2.5"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
