@@ -4,12 +4,11 @@ import { useMemo, useState, useRef, useEffect } from "react";
 import { PaystackButton } from "react-paystack";
 import { clearCart } from "../../slices/cart_slice";
 import { useNavigate } from "react-router-dom";
-// import { MailerSend, EmailParams, Sender, Recipient } from "mailersend";
 import "./order.css";
 const Order = () => {
   const url = import.meta.env.VITE_BACKEND_URL;
   const cart_items = useSelector((state) => state.cart.value);
-  const orderUrl = useRef(null)
+  const orderUrl = useRef(null);
   const [formData, setFormData] = useState({
     email: "",
     recipient: "",
@@ -19,6 +18,7 @@ const Order = () => {
     town: "",
   });
   const [shippingRates, setShippingRates] = useState([]);
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleFormData = (event) => {
@@ -46,11 +46,7 @@ const Order = () => {
   // get the subTotal amount of the items in the cart
   const subtotal = useMemo(
     () =>
-      cart_items
-        .reduce(
-          (prev, curr) => prev + (curr.quantity * curr.price),
-          0
-        ),
+      cart_items.reduce((prev, curr) => prev + curr.quantity * curr.price, 0),
     [cart_items]
   );
   // Ready total for paystack api
@@ -63,41 +59,16 @@ const Order = () => {
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify({ ...formData, 'cart_items': cart_items, 'total_amount': amount }),
+      body: JSON.stringify({
+        ...formData,
+        cart_items: cart_items,
+        total_amount: amount,
+        shipping: shippingFee,
+      }),
     });
     if (res.status == 201) {
       const data = await res.json();
-      orderUrl.current = data.slug
-      // mailer settings 
-      // const mailerSend = new MailerSend({
-      //   apiKey: import.meta.env.VITE_MAILERSEND_API_KEY,
-      // });
-      
-      // const sentFrom = new Sender("nwalipaul353@gmail.com", "Krishbeauty");
-      
-      // const recipients = [
-      //   new Recipient(formData.email, formData.recipient)
-      // ];
-      
-      // const personalization = [
-      //   {
-      //     email: formData.email,
-      //     data: {
-      //       order_number: orderUrl.current,
-      //       account_name : 'krishbeauty',
-      //       support_email: 'nwalipaul353@gmail.com',
-      //       order_url: orderUrl.current
-      //     },
-      //   }
-      // ];
-      // const emailParams = new EmailParams()
-      // .setFrom(sentFrom)
-      // .setTo(recipients)
-      // .setReplyTo(sentFrom)
-      // .setPersonalization(personalization)
-      // .setSubject("Order Confirmation")
-      // .setTemplateId(import.meta.env.VITE_MAILERSEND_TEMPLATE_ID);
-      // await mailerSend.email.send(emailParams);
+      orderUrl.current = data.slug;
       dispatch(clearCart());
       navigate(`success/${data.slug}`);
     }
@@ -235,7 +206,7 @@ const Order = () => {
                           placeholder="Lagos"
                           onChange={handleFormData}
                         >
-                          <option value='------------'>-------------</option>
+                          <option value="------------">-------------</option>
                           {shippingRates.map((rate, index) => (
                             <option key={index} value={rate.state}>
                               {rate.state}
@@ -257,7 +228,7 @@ const Order = () => {
                           placeholder="Ikeja"
                           onChange={handleFormData}
                         >
-                          <option value='------------'>-------------</option>
+                          <option value="------------">-------------</option>
                           {townOptions?.map((rate, index) => (
                             <option key={index} value={rate.town}>
                               {rate.town}
