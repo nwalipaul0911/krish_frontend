@@ -7,3 +7,7 @@ input.form-control:focus, select.form-control:focus{
 .form-field-validate{
   color:red
 }
+.error-message{
+  border: 3px solid rgb(240, 96, 96);
+  background-color: rgb(211, 99, 99);
+}

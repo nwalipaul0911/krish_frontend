@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import CartItem from "../../components/cart_item";
 import { useMemo, useState, useRef, useEffect } from "react";
-import { PaystackButton } from "react-paystack";
+import { PaystackButton, usePaystackPayment } from "react-paystack";
 import { clearCart } from "../../slices/cart_slice";
 import { useNavigate } from "react-router-dom";
 import "./order.css";
@@ -9,6 +9,10 @@ const Order = () => {
   const url = import.meta.env.VITE_BACKEND_URL;
   const cart_items = useSelector((state) => state.cart.value);
   const orderUrl = useRef(null);
+  const [shippingRates, setShippingRates] = useState([]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState(null);
   const [formData, setFormData] = useState({
     email: "",
     recipient: "",
@@ -17,10 +21,7 @@ const Order = () => {
     state: "",
     town: "",
   });
-  const [shippingRates, setShippingRates] = useState([]);
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // form data handling function
   const handleFormData = (event) => {
     const { name, value } = event.target;
     setFormData({
@@ -28,10 +29,37 @@ const Order = () => {
       [name]: value,
     });
   };
+  // Get shipping rates from backend
+  const getShippingRate = async () => {
+    let res = await fetch(`${url}/shipping`);
+    if (res.status == 200) {
+      let data = await res.json();
+      setShippingRates(data);
+    }
+  };
+  useEffect(() => {
+    getShippingRate();
+  }, []);
   // get town options from state
   const townOptions = shippingRates.filter(
     (rate) => rate.state == formData.state
   );
+  // validate form before submission
+
+  const validateForm = () => {
+    for (let input of Object.keys(formData)) {
+      if (!formData[input]) {
+        setErrorMessage(`${input} field required`);
+        return false;
+      }
+      if (input == "email" && !/\S+@\S+\.\S+/.test(formData.email)) {
+        setErrorMessage(`invalid format for ${input}`);
+        return false;
+      }
+    }
+    setErrorMessage(``)
+    return true;
+  };
   // get shipping fee
   const shippingFee = useMemo(() => {
     let curr_rate = shippingRates?.find(
@@ -54,6 +82,7 @@ const Order = () => {
 
   // save the order in the backend database
   const saveOrder = async (reference) => {
+    console.log(reference);
     const res = await fetch(`${url}/create_order`, {
       method: "POST",
       headers: {
@@ -64,7 +93,7 @@ const Order = () => {
         cart_items: cart_items,
         total_amount: amount,
         shipping: shippingFee,
-        slug: reference
+        slug: reference,
       }),
     });
     if (res.status == 201) {
@@ -74,17 +103,13 @@ const Order = () => {
       navigate(`success/${data.slug}`);
     }
   };
-  // Get shipping rate from backend
-  const getShippingRate = async () => {
-    let res = await fetch(`${url}/shipping`);
-    if (res.status == 200) {
-      let data = await res.json();
-      setShippingRates(data);
-    }
-  };
 
   // paystack component props for PaystackButton
-  const componentProps = {
+  const onSuccess = ({ reference }) => {
+    saveOrder(reference);
+  };
+  const onClose = () => null;
+  const config = {
     email: formData.email,
     amount: amount * 100,
     metadata: {
@@ -92,15 +117,17 @@ const Order = () => {
       phone: formData.phone,
     },
     publicKey: import.meta.env.VITE_PAYMENT_KEY,
-    text: "Pay Now",
-    onSuccess: (transaction) => {
-      saveOrder(transaction.reference);
-    },
-    onClose: () => alert("Wait! You need this oil, don't go!!!!"),
   };
-  useEffect(() => {
-    getShippingRate();
-  }, []);
+  // initialize paystack payment hook
+  const initializePayment = usePaystackPayment(config);
+  const handleCheckout = (e) => {
+    e.preventDefault();
+    let validated = validateForm();
+    if (validated) {
+      initializePayment(onSuccess, onClose);
+    }
+  };
+  
 
   return (
     <>
@@ -129,7 +156,8 @@ const Order = () => {
                   <div className="py-2 cart-header col-12">
                     <h5 className="text-dark">Checkout form</h5>
                   </div>
-                  <form className="col-12 mt-3">
+                  <form className="col-12 mt-3" onSubmit={handleCheckout}>
+                    {errorMessage && <p className="p-3 error-message rounded text-light"> <i className="fa-solid fa-circle-exclamation"></i> {errorMessage}</p>}
                     <div className="row mb-3">
                       <div className="col-sm-3 col-md-2">
                         <label htmlFor="recipient">Fullname:</label>
@@ -143,6 +171,7 @@ const Order = () => {
                           className="form-control col-10 rounded-0"
                           placeholder="John Doe"
                           onChange={handleFormData}
+                          required
                         />
                       </div>
                     </div>
@@ -159,6 +188,7 @@ const Order = () => {
                           className="form-control col-10 rounded-0"
                           placeholder="JohnDoe35@example.com"
                           onChange={handleFormData}
+                          required
                         />
                       </div>
                     </div>
@@ -175,6 +205,7 @@ const Order = () => {
                           className="form-control col-10 rounded-0"
                           placeholder="080xxxxxxx1"
                           onChange={handleFormData}
+                          required
                         />
                       </div>
                     </div>
@@ -191,6 +222,7 @@ const Order = () => {
                           className="form-control col-10 rounded-0"
                           placeholder="32, example street, example town"
                           onChange={handleFormData}
+                          required
                         />
                       </div>
                     </div>
@@ -207,7 +239,7 @@ const Order = () => {
                           placeholder="Lagos"
                           onChange={handleFormData}
                         >
-                          <option value="------------">-------------</option>
+                          <option value="">-------------</option>
                           {shippingRates.map((rate, index) => (
                             <option key={index} value={rate.state}>
                               {rate.state}
@@ -229,7 +261,7 @@ const Order = () => {
                           placeholder="Ikeja"
                           onChange={handleFormData}
                         >
-                          <option value="------------">-------------</option>
+                          <option value="">-------------</option>
                           {townOptions?.map((rate, index) => (
                             <option key={index} value={rate.town}>
                               {rate.town}
@@ -276,15 +308,17 @@ const Order = () => {
                         </div>
                       </div>
                     </div>
-                  </form>
-                  <div className="row mb-3 ">
-                    <div className="col">
-                      <PaystackButton
-                        {...componentProps}
-                        className="btn form-control btn-dark rounded-0"
-                      />
+                    <div className="row mb-3 ">
+                      <div className="col">
+                        <button
+                          type="submit"
+                          className={`btn form-control btn-dark rounded-0`}
+                        >
+                          Checkout
+                        </button>
+                      </div>
                     </div>
-                  </div>
+                  </form>
                 </div>
               </div>
             </div>
