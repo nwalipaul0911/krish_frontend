@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import test_image from "../../assets/images/cocacola.png";
 import { useDispatch } from "react-redux";
 import { modifyCart } from "../../slices/cart_slice";
 import { useOutletContext } from "react-router-dom";

@@ -3,13 +3,11 @@ import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useState, useEffect, useMemo, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import test_image from "../assets/images/wepik-export-20230730124122ESA6.png";
 import { useDispatch } from "react-redux";
 import { useOutletContext } from "react-router-dom";
 import { modifyCart } from "../slices/cart_slice";
 const TopBanner = ({ store }) => {
   const url = import.meta.env.VITE_BACKEND_URL;
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [banners, setBanners] = useState([]);
   const [setSidebarState] = useOutletContext();

@@ -6,7 +6,6 @@ import { modifyCart } from "../slices/cart_slice";
 
 const BottomBanner = ({ store }) => {
   const url = import.meta.env.VITE_BACKEND_URL;
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [banners, setBanners] = useState([]);
   const [setSidebarState] = useOutletContext();

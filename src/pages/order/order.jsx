@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import CartItem from "../../components/cart_item";
 import { useMemo, useState, useRef, useEffect } from "react";
-import { PaystackButton, usePaystackPayment } from "react-paystack";
+import { usePaystackPayment } from "react-paystack";
 import { clearCart } from "../../slices/cart_slice";
 import { useNavigate } from "react-router-dom";
 import "./order.css";
@@ -14,13 +14,14 @@ const Order = () => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState(null);
   const [formData, setFormData] = useState({
-    email: "",
     recipient: "",
+    email: "",
     phone: "",
     address: "",
     state: "",
     town: "",
   });
+  
   // form data handling function
   const handleFormData = (event) => {
     const { name, value } = event.target;
@@ -57,7 +58,7 @@ const Order = () => {
         return false;
       }
     }
-    setErrorMessage(``)
+    setErrorMessage(``);
     return true;
   };
   // get shipping fee
@@ -82,7 +83,6 @@ const Order = () => {
 
   // save the order in the backend database
   const saveOrder = async (reference) => {
-    console.log(reference);
     const res = await fetch(`${url}/create_order`, {
       method: "POST",
       headers: {
@@ -127,7 +127,6 @@ const Order = () => {
       initializePayment(onSuccess, onClose);
     }
   };
-  
 
   return (
     <>
@@ -157,7 +156,13 @@ const Order = () => {
                     <h5 className="text-dark">Checkout form</h5>
                   </div>
                   <form className="col-12 mt-3" onSubmit={handleCheckout}>
-                    {errorMessage && <p className="p-3 error-message rounded text-light"> <i className="fa-solid fa-circle-exclamation"></i> {errorMessage}</p>}
+                    {errorMessage && (
+                      <p className="p-3 error-message rounded text-light">
+                        {" "}
+                        <i className="fa-solid fa-circle-exclamation"></i>{" "}
+                        {errorMessage}
+                      </p>
+                    )}
                     <div className="row mb-3">
                       <div className="col-sm-3 col-md-2">
                         <label htmlFor="recipient">Fullname:</label>
