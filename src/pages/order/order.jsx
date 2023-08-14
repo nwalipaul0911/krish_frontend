@@ -53,7 +53,7 @@ const Order = () => {
   const amount = shippingFee + subtotal;
 
   // save the order in the backend database
-  const saveOrder = async () => {
+  const saveOrder = async (reference) => {
     const res = await fetch(`${url}/create_order`, {
       method: "POST",
       headers: {
@@ -64,6 +64,7 @@ const Order = () => {
         cart_items: cart_items,
         total_amount: amount,
         shipping: shippingFee,
+        slug: reference
       }),
     });
     if (res.status == 201) {
@@ -92,8 +93,8 @@ const Order = () => {
     },
     publicKey: import.meta.env.VITE_PAYMENT_KEY,
     text: "Pay Now",
-    onSuccess: () => {
-      saveOrder();
+    onSuccess: (transaction) => {
+      saveOrder(transaction.reference);
     },
     onClose: () => alert("Wait! You need this oil, don't go!!!!"),
   };
