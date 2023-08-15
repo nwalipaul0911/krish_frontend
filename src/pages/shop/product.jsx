@@ -1,11 +1,9 @@
 import { useDispatch } from "react-redux";
 import { modifyCart } from "../../slices/cart_slice";
-import { useRef } from "react";
 import "./product.css";
 import { useNavigate } from "react-router-dom";
 
 const Product = ({ product }) => {
-  const cartIncrement = useRef(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleCartIncrement = (e) => {
@@ -13,7 +11,7 @@ const Product = ({ product }) => {
     dispatch(modifyCart({ ...product, quantity: 1 }));
   };
   const handleProductNav = () => {
-    navigate(`/products/${product.id}`);
+    navigate(`products/${product.id}`);
   };
   return (
     <>

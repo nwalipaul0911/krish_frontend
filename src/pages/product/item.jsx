@@ -11,7 +11,6 @@ const Item = () => {
   const item_id = useParams().id;
   const item = items.find((i) => i.id == item_id);
   const [quantity, setQuantity] = useState(1);
-  const navigate = useNavigate()
   const [ setSidebarState ] = useOutletContext()
   const handleCartIncrement = () => {
     dispatch(modifyCart({ ...item, quantity: quantity }));
@@ -20,7 +19,6 @@ const Item = () => {
     dispatch(modifyCart({ ...item, quantity: quantity }));
     setSidebarState();
   }
-  const item_img = test_image
   return (
     <>
       <div className="container">
