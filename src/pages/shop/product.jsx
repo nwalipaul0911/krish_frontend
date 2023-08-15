@@ -7,11 +7,11 @@ const Product = ({ product }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleCartIncrement = (e) => {
-    e.stopPropagation()
+    e.stopPropagation();
     dispatch(modifyCart({ ...product, quantity: 1 }));
   };
   const handleProductNav = () => {
-    navigate(`products/${product.id}`);
+    navigate(`/products/${product.id}`);
   };
   return (
     <>
@@ -34,7 +34,7 @@ const Product = ({ product }) => {
             <div className="mx-auto">
               <button
                 className="btn btn-outline-dark rounded-0 col-12 product-button"
-                onClick={e=>handleCartIncrement(e)}
+                onClick={(e) => handleCartIncrement(e)}
               >
                 Add to cart
               </button>

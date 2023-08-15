@@ -47,10 +47,27 @@ const Navbar = ({ setSidebarState }) => {
 
       <nav className="navbar navbar-expand-lg bg-body-tertiary py-3 shadow">
         <div className="container-fluid">
-          <NavLink to="/" className="navbar-brand ms-5" href="#">
+          <NavLink to="/" className="navbar-brand ms-md-5" href="#">
             <img src={brand_logo} alt="Krishbeauty" className="brand-logo" />
           </NavLink>
-          <form className="d-flex position-relative search-container ms-md-auto me-3">
+
+          <div className="ms-md-auto me-5" id="navbarNav">
+            <ul className="navbar-nav ms-auto ">
+              <li className="nav-item">
+                <div className="position-relative">
+                  <i
+                    className="fa-solid fa-cart-shopping fs-3 cart-toggler"
+                    onClick={setSidebarState}
+                    title="Open cart"
+                  ></i>
+                  <span className="badge bg-danger rounded-pill position-absolute top-0">
+                    {cart_items.length}
+                  </span>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <form className="d-flex position-relative search-container col-12 col-md-3 me-3">
             <input
               className="form-control me-2 search"
               type="text"
@@ -73,22 +90,6 @@ const Navbar = ({ setSidebarState }) => {
               </ul>
             </div>
           </form>
-          <div className="" id="navbarNav">
-            <ul className="navbar-nav ms-auto me-md-5 me-4">
-              <li className="nav-item">
-                <div className="position-relative">
-                  <i
-                    className="fa-solid fa-cart-shopping fs-3 cart-toggler"
-                    onClick={setSidebarState}
-                    title="Open cart"
-                  ></i>
-                  <span className="badge bg-danger rounded-pill position-absolute top-0">
-                    {cart_items.length}
-                  </span>
-                </div>
-              </li>
-            </ul>
-          </div>
         </div>
       </nav>
     </>

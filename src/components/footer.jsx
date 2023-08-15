@@ -29,7 +29,7 @@ const Footer = () => {
             <div className="col-8 mx-lg-auto text-muted mt-4 mt-lg-0">
               <h5 className="text-muted mb-3">Customer Service</h5>
               <p>Tel: 09037399585</p>
-              <p>Email: Krishibeauty@gmail.com</p>
+              <p>Email: Krishbeauty@gmail.com</p>
               <div className="d-flex justify-content-between ">
                 <a href="https://www.facebook.com/krishbeauty" target="_blank">
                   <i className="fa-brands fa-facebook text-secondary"></i>
