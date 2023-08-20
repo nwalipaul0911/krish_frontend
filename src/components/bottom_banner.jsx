@@ -1,15 +1,18 @@
 import "./banner.css";
 import { useState, useEffect } from "react";
-import { useNavigate, useOutletContext } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useOutletContext } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { modifyCart } from "../slices/cart_slice";
+import { motion } from "framer-motion";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
-const BottomBanner = ({ store }) => {
+const BottomBanner = ({ store, scrollPosition }) => {
   const url = import.meta.env.VITE_BACKEND_URL;
   const dispatch = useDispatch();
   const [banners, setBanners] = useState([]);
   const [setSidebarState] = useOutletContext();
   const [carouselstate, setCarouselState] = useState(0);
+
   useEffect(() => {
     setTimeout(() => {
       if (carouselstate < banners.length - 1) {
@@ -39,15 +42,30 @@ const BottomBanner = ({ store }) => {
         {banners?.map(
           (banner, index) =>
             index == carouselstate && (
-              <div className="row g-0 bottom-banner rounded shadow" key={index}>
-                <div className="col-12 col-md-6">
-                  <div className="mx-auto col-10 banner-img-container">
-                    <img
+              <div
+                className="row g-0 bottom-banner rounded shadow"
+                key={index}
+              >
+                <div className="col-12 col-md-6" >
+                  <motion.div
+                    className="mx-auto col-7 py-3 banner-img-container"
+                    initial={"hidden"}
+                    animate={'visible'}
+                    variants={{
+                      hidden: { x: 100, opacity: 0 },
+                      visible: { x: 0, opacity: 1 },
+                    }}
+                    transition={{ delay: 2, duration: 1 }}
+                  >
+                    <LazyLoadImage
                       src={banner?.image}
                       alt="..."
+                      scrollPosition={scrollPosition}
                       className="banner-image img-fluid"
+                      effect="blur"
+                      placeholderSrc=""
                     />
-                  </div>
+                  </motion.div>
                 </div>
                 <div className="col-md-6 col-12 py-5">
                   <div className="text-center">

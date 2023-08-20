@@ -1,9 +1,11 @@
-a>.fa-brands:hover{
-  font-size: 1.5rem;
-  transition-duration: 100ms;
-  transition-timing-function: ease-in;
-  position:relative
-}
+
 .footer-img{
   filter: grayscale(10%);
+}
+li.nav-item{
+  text-decoration: none;
+  list-style: none;
+}
+.nav-link:hover{
+  color: whitesmoke
 }

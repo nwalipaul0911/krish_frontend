@@ -2,8 +2,9 @@
   background-color: black;
 }
 .top-banner{
-  background: rgb(183, 181, 181);
+  background:linear-gradient(to bottom right, rgba(215, 215, 215, 0.3),rgba(183, 181, 181, 0.688),rgb(100, 100, 100));
   height: fit-content;
+  clip-path: polygon(0 0, 100% 0, 100% 95%, 55% 100%, 0 90%);
 }
 .banner-small-text{
   font-size: 2rem;
@@ -19,4 +20,11 @@
   aspect-ratio: 4/3;
   display: grid;
   place-items: center;
+}
+@media screen and (max-width:650px) {
+  .top-banner{
+    background:linear-gradient(to bottom right, rgba(215, 215, 215, 0.3),rgba(183, 181, 181, 0.688),rgb(100, 100, 100));
+    height: fit-content;
+    clip-path: polygon(0 0, 100% 0, 100% 98%, 55% 100%, 0 96%);
+  }
 }

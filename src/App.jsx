@@ -7,13 +7,10 @@ import Footer from "./components/footer";
 
 function App() {
   const sidebarState = localStorage.getItem("sidebar");
-  const [cartView, setCartView] = useState(() =>
-    sidebarState ? sidebarState : "cart-hidden"
+  const [cartView, setCartView] = useState(false
   );
   const setSidebarState = () => {
-    cartView == "cart-hidden"
-      ? setCartView("cart-visible")
-      : setCartView("cart-hidden");
+    setCartView(!cartView)
   };
 
   return (

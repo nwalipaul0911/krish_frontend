@@ -4,15 +4,7 @@
   position: fixed;
   right:0;
   top:0;
-  transition-duration: 500ms;
-  transition-timing-function: ease-in-out;
   z-index: 1;
-}
-.cart-visible{
-  transform: translateX(0%);
-}
-.cart-hidden{
-  transform: translateX(100%);
 }
 .cart-header.row{
   border-bottom: none;

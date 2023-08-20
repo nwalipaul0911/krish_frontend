@@ -1,36 +1,46 @@
 import "./shop.css";
 import Product from "./product";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useLoaderData } from "react-router-dom";
 import { setProducts } from "../../slices/products_slice";
 import { useDispatch } from "react-redux";
-import TopBanner from "../../components/top_banner";
-import BottomBanner from "../../components/bottom_banner";
 import ReactPaginate from "react-paginate";
-const Shop = () => {
+import { trackWindowScroll } from "react-lazy-load-image-component";
+import Filter from "../../components/filter";
+const Shop = ({ scrollPosition }) => {
+  const url = import.meta.env.VITE_BACKEND_URL;
+  const shopRef = useRef("shop");
   const [store, setStore] = useState(useLoaderData());
+  const [filtered, setFiltered] = useState(store.products);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setProducts(store.products));
   }, [store]);
-  const itemsPerPage = 8;
+  const itemsPerPage = 20;
   const [itemOffset, setItemOffset] = useState(0);
   const endOffset = itemOffset + itemsPerPage;
-  const currentItems = store.products.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(store.products.length / itemsPerPage);
+  const currentItems = filtered.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(filtered.length / itemsPerPage);
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % store.products.length;
+    const newOffset = (event.selected * itemsPerPage) % filtered.length;
     setItemOffset(newOffset);
   };
 
   return (
-    <>
-      <TopBanner store={store} />
-      <div className="container py-5">
-        <div className="row col-md-10 mx-auto">
-          <h1 className="text-center text-dark my-4">Our Products</h1>
+    <div className="container-fluid">
+      <div className="col pb-5">
+        <h1 className="text-center text-dark my-4">Products</h1>
+        <div className="bg-light p-3 border">
+          <Filter store={store.products} setFiltered={setFiltered} />
+        </div>
+        <div className="row px-4">
           {currentItems.map((product, index) => (
-            <Product key={index} product={product} />
+            <Product
+              key={index}
+              product={product}
+              scrollPosition={scrollPosition}
+              shopRef={shopRef}
+            />
           ))}
         </div>
         <ReactPaginate
@@ -55,8 +65,7 @@ const Shop = () => {
           renderOnZeroPageCount={null}
         />
       </div>
-      <BottomBanner store={store} />
-    </>
+    </div>
   );
 };
-export default Shop;
+export default trackWindowScroll(Shop);
