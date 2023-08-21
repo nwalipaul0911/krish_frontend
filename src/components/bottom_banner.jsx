@@ -61,21 +61,21 @@ const BottomBanner = ({ store, scrollPosition }) => {
                       src={banner?.image}
                       alt="..."
                       scrollPosition={scrollPosition}
-                      className="banner-image img-fluid"
+                      className="banner-image img-fluid shadow"
                       effect="blur"
                       placeholderSrc=""
                     />
                   </motion.div>
                 </div>
                 <div className="col-md-6 col-12 py-5">
-                  <div className="text-center">
-                    <span className="footer-banner-small-text text-secondary">
+                  <div className="text-center text-light">
+                    <span className="footer-banner-small-text">
                       {banner.small_text}
                     </span>
-                    <h1 className="text-secondary footer-banner-large-text">
+                    <h1 className="footer-banner-large-text">
                       {banner.large_text}
                     </h1>
-                    <p className="footer-banner-description text-secondary">
+                    <p className="footer-banner-description">
                       {banner.title}
                     </p>
                   </div>
@@ -84,7 +84,7 @@ const BottomBanner = ({ store, scrollPosition }) => {
                     style={{ width: "fit-content" }}
                   >
                     <button
-                      className="btn btn-danger rounded-pill px-5"
+                      className="btn btn-danger rounded-pill px-5 shadow"
                       onClick={() => handleBuyNow(banner.product)}
                     >
                       {banner.button_text}

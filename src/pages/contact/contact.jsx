@@ -25,7 +25,7 @@ const Contact = () => {
     email: "",
     message: "",
   };
-  
+
   const handleFormData = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -74,7 +74,11 @@ const Contact = () => {
           onSubmit={submitMessage}
         >
           {errorMessage && (
-            <motion.p animate={{scale:1}} initial={{scale:0}} className="ps-3 error-message rounded text-light">
+            <motion.p
+              animate={{ scale: 1 }}
+              initial={{ scale: 0 }}
+              className="ps-3 error-message rounded text-light"
+            >
               {" "}
               <i className="fa-solid fa-circle-exclamation"></i> {errorMessage}
             </motion.p>
@@ -140,34 +144,30 @@ const Contact = () => {
         referrerPolicy="no-referrer-when-downgrade"
         className="pt-5 mt-5 col-12"
       ></iframe>
-      <div className="container my-5 py-5">
-        <div className="row">
-          <div className="col-md-3 col-sm-6">
-            <h4 className="text-center">
-              <i className="fa-solid fa-phone text-orange"></i> Phone
-            </h4>
-            <p className="text-center text-secondary">(+234) 903-739-9585</p>
+      <div className="container-fluid my-5 py-5">
+        <div className="row g-5">
+          <div className="col-md-3 col-sm-6 text-center card border pt-3 shadow">
+            <i className="fa-solid fs-2 fa-phone text-dark mb-3"></i>
+            <h4 className="">Phone</h4>
+            <p className=" text-secondary">(+234) 903-739-9585</p>
           </div>
-          <div className="col-md-3 col-sm-6">
-            <h4 className="text-center">
-              <i className="fa-solid fa-location-dot text-orange"></i> Address
-            </h4>
-            <p className="text-center text-secondary">
+          <div className="col-md-3 col-sm-6 text-center card border pt-3 shadow">
+            <i className="fa-solid fs-2 fa-location-dot text-dark mb-3"></i>
+            <h4 className="text-center"> Address</h4>
+            <p className="text-secondary">
               Lzp023 lozinko plaza beside rivers gate tradefair complex
             </p>
           </div>
-          <div className="col-md-3 col-sm-6">
-            <h4 className="text-center">
-              <i className="fa-solid fa-clock text-orange"></i> Open hours
-            </h4>
-            <p className="text-center text-secondary">Mon-Fri: 10.00 - 23.00</p>
-            <p className="text-center text-secondary">Sat-Sun: 10.00 - 19.00</p>
+          <div className="col-md-3 col-sm-6 text-center card border pt-3 shadow">
+            <i className="fa-solid fs-2 fa-clock text-dark mb-3"></i>
+            <h4 className="text-center">Open hours</h4>
+            <p className="text-secondary">Mon-Fri: 10.00 - 23.00</p>
+            <p className="text-secondary">Sat-Sun: 10.00 - 19.00</p>
           </div>
-          <div className="col-md-3 col-sm-6">
-            <h4 className="text-center">
-              <i className="fa-solid fa-envelope text-orange"></i> E-mail
-            </h4>
-            <p className="text-center text-secondary">Krishbeauty@gmail.com</p>
+          <div className="col-md-3 col-sm-6 text-center card border pt-3 shadow">
+            <i className="fa-solid fs-2 fa-envelope text-dark mb-3"></i>
+            <h4 className="text-center">E-mail</h4>
+            <p className="text-secondary">Krishbeauty@gmail.com</p>
           </div>
         </div>
       </div>

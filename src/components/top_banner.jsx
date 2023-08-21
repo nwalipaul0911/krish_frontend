@@ -76,7 +76,7 @@ const TopBanner = ({ store }) => {
                 <div className="col-12 col-md-6 mt-5 mt-md-0">
                   <motion.div
                     className="mx-auto col-10 banner-img-container"
-                    animate={{ opacity: 1 }}
+                    animate={{ opacity: 1}}
                     initial={{ opacity: 0 }}
                     transition={{ delay: 2, duration: 1 }}
                   >

@@ -9,16 +9,20 @@
   margin: 0 auto;
 }
 a.page-link.active{
-  background-color: black;
+  color: #e9018d ;
+  background-color: transparent;
+  border-bottom: 1px solid #e9018d ;
 }
 a.page-link:focus{
   box-shadow:none;
 }
 a.page-link:hover{
-  background-color: rgba(0, 0, 0, 0.436);
-  color: whitesmoke
+  background-color: transparent;
+  color: #e9018d ;
+  border-bottom: 1px solid #e9018d ;
 }
 a.page-link{
-  color: black;
+  color: rgb(112, 112, 112);
   border: none;
+  
 }

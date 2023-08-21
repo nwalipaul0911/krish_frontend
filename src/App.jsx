@@ -14,7 +14,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="App position relative">
       <Navbar setSidebarState={setSidebarState} />
       <Cart setSidebarState={setSidebarState} cartView={cartView} />
       <Outlet context={[setSidebarState]}/>

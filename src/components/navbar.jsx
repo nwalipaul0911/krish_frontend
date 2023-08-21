@@ -9,7 +9,7 @@ const Navbar = ({ setSidebarState }) => {
   const cart_items = useSelector((state) => state.cart.value);
   const products = useSelector((state) => state.products.value);
   const [searchParam, setSearchParam] = useState("");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const searchResult = useCallback(
     products.filter(
       (a) => searchParam && a.name.includes(searchParam),
@@ -22,14 +22,40 @@ const Navbar = ({ setSidebarState }) => {
   return (
     <>
       <div className="d-flex bg-dark jusitfy-content-between col-md-12 col-sm-none py-2 ">
-        <div className="top-bar">
-          <div className="top-bar-contact ps-5">
-            <i className="text-secondary">
-              <i className="fa-solid fa-phone"></i> 09037399585
-            </i>
-            <i className="text-secondary ms-3">
-              <i className="fa-solid fa-envelope"></i> Krishibeauty@gmail.com
-            </i>
+        <div className="ps-5 col-6">
+          <div className="row">
+            <motion.a
+              whileHover={{ scale: 1.5 }}
+              href="https://www.facebook.com/krishbeauty"
+              target="_blank"
+              className="col-2"
+            >
+              <i className="fa-brands fa-facebook text-secondary"></i>
+            </motion.a>
+            <motion.a
+              whileHover={{ scale: 1.5 }}
+              href="https://www.tiktok.com/@krish_beauti"
+              target="_blank"
+              className="col-2"
+            >
+              <i className="fa-brands fa-tiktok text-secondary"></i>
+            </motion.a>
+            <motion.a
+              whileHover={{ scale: 1.5 }}
+              href="https://www.instagram.com/krish_beauty/"
+              target="_blank"
+              className="col-2"
+            >
+              <i className="fa-brands fa-instagram text-secondary"></i>
+            </motion.a>
+            <motion.a
+              whileHover={{ scale: 1.5 }}
+              href="https://wa.me/2349037399585"
+              target="_blank"
+              className="col-2"
+            >
+              <span className="fa-brands fa-whatsapp text-secondary"></span>
+            </motion.a>
           </div>
         </div>
         <div className="position-relative ms-auto me-5">
@@ -38,7 +64,12 @@ const Navbar = ({ setSidebarState }) => {
             onClick={setSidebarState}
             title="Open cart"
           ></i>
-          <motion.span animate={{scale: [1, 0.5, 1]}} initial={{scale:0}} transition={{}} className="badge bg-danger rounded-pill position-absolute top-0">
+          <motion.span
+            animate={{ scale: [1, 0.5, 1] }}
+            initial={{ scale: 0 }}
+            transition={{}}
+            className="badge bg-danger rounded-pill position-absolute top-0"
+          >
             {cart_items.length}
           </motion.span>
         </div>
@@ -64,17 +95,30 @@ const Navbar = ({ setSidebarState }) => {
           <div className="collapse navbar-collapse pb-4 pb-md-0" id="navbarNav">
             <ul className="navbar-nav ms-md-auto my-3 me-3">
               <li className="nav-item">
-                <NavLink to='/' className="nav-link custom-nav-link" aria-current="page" href="#">
+                <NavLink
+                  to="/"
+                  className="nav-link custom-nav-link"
+                  aria-current="page"
+                  href="#"
+                >
                   Home
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink to='/shop' className="nav-link custom-nav-link" href="#">
+                <NavLink
+                  to="/shop"
+                  className="nav-link custom-nav-link"
+                  href="#"
+                >
                   Shop
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink to='/contact' className="nav-link custom-nav-link" href="#">
+                <NavLink
+                  to="/contact"
+                  className="nav-link custom-nav-link"
+                  href="#"
+                >
                   Contact
                 </NavLink>
               </li>
@@ -95,11 +139,15 @@ const Navbar = ({ setSidebarState }) => {
             >
               <ul className="p-0">
                 {searchResult.map((item, index) => (
-                  <li key={index} className="search-item py-1 ps-3 nav-link" onClick={()=>{
-                    navigate(`/products/${item.id}`)
-                    setSearchParam('')
-                  }}>
-                      {item.name}
+                  <li
+                    key={index}
+                    className="search-item py-1 ps-3 nav-link"
+                    onClick={() => {
+                      navigate(`/products/${item.id}`);
+                      setSearchParam("");
+                    }}
+                  >
+                    {item.name}
                   </li>
                 ))}
               </ul>

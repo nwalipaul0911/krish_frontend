@@ -12,13 +12,13 @@
   -webkit-text-size-adjust: 100%;
 }
 ::placeholder{
-  font-family: 'poppins' sans-serif;
+  font-family: 'Arapey', serif;
 }
 h1,h2,h3,h4,h5,h6{
   font-family: 'Arapey', serif;
 }
 p,span,small,i, a, label{
-  font-family: 'Nanum Myeongjo', serif;
+  font-family: 'poppins' sans-serif;
 }
 button, .btn{
   font-family: 'Arapey', serif;

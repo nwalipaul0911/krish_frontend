@@ -37,10 +37,13 @@ a.navbar-brand>img.brand-logo{
 span.badge{
   font-size: xx-small;
 }
+.navbar{
+  position:sticky;
+  top:0;
+}
 .navbar-toggler:focus{
   box-shadow: none;
 }
 .custom-nav-link:hover{
   color:#e9018d !important;
-  border-bottom: 2px solid #e9018d;
 }

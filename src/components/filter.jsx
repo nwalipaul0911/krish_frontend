@@ -13,7 +13,7 @@ const Filter = ({ store, setFiltered }) => {
       setCategories(data);
     }
   };
-  const handleFilter = () => {
+  const handleFilter = (e) => {
     const filtered = store.filter((item) =>
       currCategory
         ? item.category == currCategory
@@ -22,37 +22,34 @@ const Filter = ({ store, setFiltered }) => {
     setFiltered(filtered);
   };
   useEffect(() => {
-    getCategories();
-    handleFilter()
+    categories == "" ? getCategories() : null;
+    handleFilter();
   }, [currCategory]);
 
   return (
-    <>
-      <div className="">
-        <div className="">
-          <h5>
-            Filter <i className="fa-solid fa-filter"></i>
-          </h5>
-        </div>
-        <div className="">
-          <a
-            className="btn btn-sm btn-outline-secondary rounded-pill px-3"
-            onClick={() => setCurrCategory("")}
-          >
-            All
-          </a>
-          {categories.map((category, index) => (
-            <a
-              key={index}
-              className="btn btn-sm btn-outline-secondary rounded-pill px-3"
-              onClick={() => setCurrCategory(category.id)}
-            >
-              {category.name}
-            </a>
-          ))}
-        </div>
-      </div>
-    </>
+    <div className="position-sticky top-0" style={{maxHeight: '70vh'}}>
+      <h5 className="text-center">
+        Filter by category <i className="fa-solid fa-filter"></i>
+      </h5>
+      <hr />
+      <a
+        className="btn btn-sm btn-outline-secondary rounded-pill px-3"
+        onClick={() => setCurrCategory("")}
+      >
+        All
+      </a>
+      {categories.map((category, index) => (
+        <a
+          key={index}
+          className="btn btn-sm btn-outline-secondary rounded-pill px-3"
+          onClick={() => setCurrCategory(category.id)}
+        >
+          {category.name}
+        </a>
+      ))}
+
+      <hr />
+    </div>
   );
 };
 

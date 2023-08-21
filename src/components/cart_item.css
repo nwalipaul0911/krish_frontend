@@ -10,7 +10,6 @@ input[type=number]::-webkit-inner-spin-button { opacity: 1; }
   border-bottom: 0.5px rgb(225, 225, 225) solid;
 }
 .cart-item-control{
-  transform: translateX(100%);
   font-size: 0.75rem;
   visibility: hidden;
 }

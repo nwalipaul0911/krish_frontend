@@ -9,7 +9,7 @@ import { trackWindowScroll } from "react-lazy-load-image-component";
 import Filter from "../../components/filter";
 const Shop = ({ scrollPosition }) => {
   const url = import.meta.env.VITE_BACKEND_URL;
-  const shopRef = useRef("shop");
+  const shopRef = useRef('shop')
   const [store, setStore] = useState(useLoaderData());
   const [filtered, setFiltered] = useState(store.products);
   const dispatch = useDispatch();
@@ -28,42 +28,40 @@ const Shop = ({ scrollPosition }) => {
 
   return (
     <div className="container-fluid">
-      <div className="col pb-5">
-        <h1 className="text-center text-dark my-4">Products</h1>
-        <div className="bg-light p-3 border">
+      <div className="row">
+        
+        <div className="col pb-5 order-md-2">
+          <div className="row px-4">
+            <h1 className="text-center text-dark my-4">Products</h1>
+            {currentItems.map((product, index) => (
+              <Product key={index} product={product} scrollPosition={scrollPosition} shopRef={shopRef} />
+            ))}
+          </div>
+          <ReactPaginate
+            nextLabel="next >"
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={5}
+            marginPagesDisplayed={2}
+            pageCount={pageCount}
+            previousLabel="< prev"
+            pageClassName="page-item"
+            pageLinkClassName="page-link"
+            previousClassName="page-item"
+            previousLinkClassName="page-link"
+            nextClassName="page-item"
+            nextLinkClassName="page-link"
+            breakLabel="..."
+            breakClassName="page-item"
+            breakLinkClassName="page-link"
+            containerClassName="pagination"
+            activeClassName="active"
+            activeLinkClassName="active"
+            renderOnZeroPageCount={null}
+          />
+        </div>
+        <div className="col-md-3 bg-light p-3 border">
           <Filter store={store.products} setFiltered={setFiltered} />
         </div>
-        <div className="row px-4">
-          {currentItems.map((product, index) => (
-            <Product
-              key={index}
-              product={product}
-              scrollPosition={scrollPosition}
-              shopRef={shopRef}
-            />
-          ))}
-        </div>
-        <ReactPaginate
-          nextLabel="next >"
-          onPageChange={handlePageClick}
-          pageRangeDisplayed={5}
-          marginPagesDisplayed={2}
-          pageCount={pageCount}
-          previousLabel="< previous"
-          pageClassName="page-item"
-          pageLinkClassName="page-link"
-          previousClassName="page-item"
-          previousLinkClassName="page-link"
-          nextClassName="page-item"
-          nextLinkClassName="page-link"
-          breakLabel="..."
-          breakClassName="page-item"
-          breakLinkClassName="page-link"
-          containerClassName="pagination"
-          activeClassName="active"
-          activeLinkClassName="active"
-          renderOnZeroPageCount={null}
-        />
       </div>
     </div>
   );

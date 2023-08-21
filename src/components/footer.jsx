@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 const Footer = () => {
   return (
     <>
-      <div className="container-fluid bg-dark pt-5">
+      <div className="container-fluid bg-light pt-5 border">
         <div className="row">
           <div className="col-12 col-md-6 row">
             <div className="col-md-8 ms-md-auto mt-4 mt-lg-0">
@@ -14,7 +14,7 @@ const Footer = () => {
               </div>
             </div>
             <div className="col-md-4 text-muted">
-              <h5 className="text-light mb-3">Navigation</h5>
+              <h5 className="text-dark mb-3">Navigation</h5>
               <ul className="ps-0">
                 <li className="nav-item">
                   <Link to="/" className="nav-link pb-3">
@@ -37,7 +37,7 @@ const Footer = () => {
           </div>
           <div className="col-12 col-md-3">
             <div className="col-8 ms-lg-auto text-muted mt-4 mt-lg-0">
-              <h5 className="text-light mb-3">Our Store</h5>
+              <h5 className="text-dark mb-3">Our Store</h5>
 
               <p>
                 Address: Lzp023 lozinko plaza beside rivers gate tradefair
@@ -49,7 +49,7 @@ const Footer = () => {
           </div>
           <div className="col-12 col-md-3">
             <div className="col-8 mx-lg-auto text-muted mt-4 mt-lg-0">
-              <h5 className="text-light mb-3">Customer Service</h5>
+              <h5 className="text-dark mb-3">Customer Service</h5>
               <p>Tel: 09037399585</p>
               <p>Email: Krishbeauty@gmail.com</p>
               <div className="d-flex justify-content-between ">
@@ -86,10 +86,10 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <p className="text-muted text-center bg-dark mb-0 mt-5">
-          All rights reserved. &copy; {new Date().getFullYear()}
-        </p>
       </div>
+      <p className="text-light text-center bg-secondary mb-0 px-0">
+        All rights reserved. &copy; {new Date().getFullYear()}
+      </p>
     </>
   );
 };

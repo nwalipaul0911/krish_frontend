@@ -1,8 +1,8 @@
 .bottom-banner{
-  background-color: black;
+  background: linear-gradient(to top right, rgb(0, 0, 0),rgba(28, 27, 27, 0.688),#330042, #330042);
 }
 .top-banner{
-  background:linear-gradient(to bottom right, rgba(215, 215, 215, 0.3),rgba(183, 181, 181, 0.688),rgb(100, 100, 100));
+  background:linear-gradient(to bottom right, rgba(215, 215, 215, 0.3),rgba(183, 181, 181, 0.688),#330042);
   height: fit-content;
   clip-path: polygon(0 0, 100% 0, 100% 95%, 55% 100%, 0 90%);
 }
@@ -23,7 +23,7 @@
 }
 @media screen and (max-width:650px) {
   .top-banner{
-    background:linear-gradient(to bottom right, rgba(215, 215, 215, 0.3),rgba(183, 181, 181, 0.688),rgb(100, 100, 100));
+    background:linear-gradient(to bottom right, rgba(215, 215, 215, 0.3),rgba(183, 181, 181, 0.688),rgb(0, 0, 0));
     height: fit-content;
     clip-path: polygon(0 0, 100% 0, 100% 98%, 55% 100%, 0 96%);
   }
