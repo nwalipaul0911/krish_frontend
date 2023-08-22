@@ -43,7 +43,7 @@ const Cart = ({ setSidebarState, cartView }) => {
         {cart_items.length ? (
           <Link
             to="/checkout"
-            className={`btn btn-dark order-btn rounded-0`}
+            className="btn btn-dark order-btn rounded-pill"
             onClick={setSidebarState}
           >
             Place Order

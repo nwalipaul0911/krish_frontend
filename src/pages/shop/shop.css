@@ -19,7 +19,7 @@ a.page-link:focus{
 a.page-link:hover{
   background-color: transparent;
   color: #e9018d ;
-  border-bottom: 1px solid #e9018d ;
+  border-bottom: 2px solid #e9018d ;
 }
 a.page-link{
   color: rgb(112, 112, 112);

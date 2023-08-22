@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import ReactPaginate from "react-paginate";
 import { trackWindowScroll } from "react-lazy-load-image-component";
 import Filter from "../../components/filter";
+import BottomBanner from "../../components/bottom_banner";
 const Shop = ({ scrollPosition }) => {
   const url = import.meta.env.VITE_BACKEND_URL;
   const shopRef = useRef('shop')
@@ -63,6 +64,7 @@ const Shop = ({ scrollPosition }) => {
           <Filter store={store.products} setFiltered={setFiltered} />
         </div>
       </div>
+      <BottomBanner />
     </div>
   );
 };

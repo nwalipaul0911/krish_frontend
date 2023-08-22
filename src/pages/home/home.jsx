@@ -1,8 +1,8 @@
 import "../shop/shop.css";
 import "./home.css";
 import Product from "../shop/product";
-import { useEffect, useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useEffect } from "react";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { setProducts } from "../../slices/products_slice";
 import { useDispatch } from "react-redux";
 import TopBanner from "../../components/top_banner";
@@ -14,22 +14,16 @@ import { motion } from "framer-motion";
 import payment_image from "../../assets/images/cropped-shot-african-american-businessman-paying-with-credit-card-online.jpg";
 import delivery_man from "../../assets/images/portrait-young-african-guy-accepts-order-by-phone-motorbike-holding-boxes-with-pizza-sit-his-bike-urban-place.jpg";
 import About from "../about/about";
+import placeholder from '../../assets/images/placeholder.webp'
 
 const Home = ({ scrollPosition }) => {
   const store = useLoaderData();
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   useEffect(() => {
     dispatch(setProducts(store.products));
   }, [store]);
-  const itemsPerPage = 8;
-  const [itemOffset, setItemOffset] = useState(0);
-  const endOffset = itemOffset + itemsPerPage;
-  const currentItems = store.products.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(store.products.length / itemsPerPage);
-  const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % store.products.length;
-    setItemOffset(newOffset);
-  };
+  const currentItems = store.products.slice(0, 8);
 
   return (
     <>
@@ -59,6 +53,7 @@ const Home = ({ scrollPosition }) => {
                   src={product_image}
                   alt=""
                   className="img-fluid"
+                  placeholderSrc={placeholder}
                 />
               </div>
               <div className="col-md-6">
@@ -91,6 +86,7 @@ const Home = ({ scrollPosition }) => {
                   src={payment_image}
                   alt=""
                   className="img-fluid"
+                  placeholderSrc={placeholder}
                 />
               </div>
               <div className="col-md-6">
@@ -120,6 +116,7 @@ const Home = ({ scrollPosition }) => {
                   src={delivery_man}
                   alt=""
                   className="img-fluid"
+                  placeholderSrc={placeholder}
                 />
               </div>
               <div className="col-md-6">
@@ -149,6 +146,7 @@ const Home = ({ scrollPosition }) => {
               transition={{ delay: 0.3 }}
               whileHover={{ scale: 1.1 }}
               className="btn btn-danger px-5 rounded-pill shadow top-banner-button border-0"
+              onClick={()=>navigate('shop')}
             >
               View Products
             </motion.button>

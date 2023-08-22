@@ -278,7 +278,7 @@ const Checkout = () => {
                         </select>
                       </div>
                     </div>
-                    <div className="bg-light border p-2">
+                    <div className="bg-light border p-2 rounded">
                       <div className="row">
                         <div className="col-sm-3 col-md-2">
                           <label htmlFor="shipping" className="">
@@ -316,11 +316,11 @@ const Checkout = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="row mb-3 ">
+                    <div className="row mb-3  mt-3">
                       <div className="col">
                         <button
                           type="submit"
-                          className={`btn form-control btn-dark rounded-0`}
+                          className={`btn form-control btn-dark rounded-pill`}
                         >
                           Checkout
                         </button>

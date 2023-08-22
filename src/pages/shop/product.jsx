@@ -4,16 +4,13 @@ import "./product.css";
 import { useNavigate } from "react-router-dom";
 import { motion, useAnimation, useInView } from "framer-motion";
 import { useRef, useEffect } from "react";
-import {
-  LazyLoadImage,
-  trackWindowScroll,
-} from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 
-const Product = ({ product, scrollPosition, shopRef }) => {
+const Product = ({ product, scrollPosition}) => {
   const viewRef = useRef(null);
   const isInView = useInView(viewRef, { once: true });
   const mainControls = useAnimation();
+  const hovercontrols = useAnimation()
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -31,22 +28,25 @@ const Product = ({ product, scrollPosition, shopRef }) => {
   return (
     <div ref={viewRef} className={`col-md-3 col-6`}>
       <motion.div
-        variants={{ hidden: { opacity: 0, rotate:45 }, visible: { opacity: 1, rotate:0 } }}
+        variants={{ hidden: { opacity: 0, rotate:45, x: 30 }, visible: { opacity: 1, rotate:0, x: 0 } }}
         initial="hidden"
         animate={mainControls}
+        transition={{delay: 1}}
         className="col"
       >
         <motion.div
           className="card col-10 mx-auto product-card my-4"
           onClick={handleProductNav}
-          whileHover={{ scale: 1.05 }}
+          onMouseEnter={()=>hovercontrols.start('hovering')}
+          onMouseLeave={()=>hovercontrols.start('normal')}
         >
-          <LazyLoadImage
-            src={`${product.image}`}
-            alt="..."
-            effect="blur"
+          <motion.img
+            variants={{normal: {scale: 0.8}, hovering:{scale: 1}}}
+            initial={'normal'}
+            animate={hovercontrols}
+            transition={{type: 'spring', stiffness: 500}}
+            src={product.image}
             className="img-fluid card-img shadow"
-            placeholderSrc=""
             scrollPosition={scrollPosition}
           />
 
@@ -61,7 +61,7 @@ const Product = ({ product, scrollPosition, shopRef }) => {
 
             <div className="mx-auto">
               <button
-                className="btn btn-sm btn-outline-dark rounded-0 col-12 product-button"
+                className="btn btn-sm btn-outline-dark rounded-pill col-12 product-button"
                 onClick={(e) => handleCartIncrement(e)}
               >
                 Add to cart
