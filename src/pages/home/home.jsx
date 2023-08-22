@@ -1,4 +1,5 @@
 import "../shop/shop.css";
+import "./home.css";
 import Product from "../shop/product";
 import { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
@@ -8,12 +9,14 @@ import TopBanner from "../../components/top_banner";
 import BottomBanner from "../../components/bottom_banner";
 import { trackWindowScroll } from "react-lazy-load-image-component";
 import product_image from "../../assets/images/product.jpg";
-import { LazyLoadImage } from 'react-lazy-load-image-component'
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import { motion } from "framer-motion";
 import payment_image from "../../assets/images/cropped-shot-african-american-businessman-paying-with-credit-card-online.jpg";
-import cardboard_box from "../../assets/images/beautiful-old-uneven-wooden-table-with-two-blank-similar-cardboard-boxes-with-covers-against-white-wall-background.jpg";
+import delivery_man from "../../assets/images/portrait-young-african-guy-accepts-order-by-phone-motorbike-holding-boxes-with-pizza-sit-his-bike-urban-place.jpg";
+import About from "../about/about";
 
 const Home = ({ scrollPosition }) => {
-  const [store, setStore] = useState(useLoaderData());
+  const store = useLoaderData();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setProducts(store.products));
@@ -31,6 +34,7 @@ const Home = ({ scrollPosition }) => {
   return (
     <>
       <TopBanner store={store} />
+      <About />
       <div className="container-fluid py-5">
         <div className="row col-md-10 mx-auto">
           <h1 className="text-center text-dark my-4">Featured Products</h1>
@@ -50,10 +54,15 @@ const Home = ({ scrollPosition }) => {
           <div className="container-fluid">
             <div className="row my-4">
               <div className="col-md-6 mb-4">
-                <LazyLoadImage effect="blur" src={product_image} alt="" className="img-fluid" />
+                <LazyLoadImage
+                  effect="blur"
+                  src={product_image}
+                  alt=""
+                  className="img-fluid"
+                />
               </div>
               <div className="col-md-6">
-                <h2 className="text-danger">Quality Products</h2>
+                <h2 className="about-headers">Quality Products</h2>
 
                 <div className="text-justify">
                   <p>
@@ -77,10 +86,15 @@ const Home = ({ scrollPosition }) => {
           <div className="container">
             <div className="row my-4">
               <div className="col-md-6 order-md-2 mb-4">
-                <LazyLoadImage effect="blur" src={payment_image} alt="" className="img-fluid" />
+                <LazyLoadImage
+                  effect="blur"
+                  src={payment_image}
+                  alt=""
+                  className="img-fluid"
+                />
               </div>
               <div className="col-md-6">
-                <h2 className="text-danger">Safe and Easy Payment</h2>
+                <h2 className="about-headers">Safe and Easy Payment</h2>
 
                 <div className="text-justify">
                   <p>
@@ -101,10 +115,15 @@ const Home = ({ scrollPosition }) => {
           <div className="container">
             <div className="row my-4">
               <div className="col-md-6 mb-4">
-                <LazyLoadImage effect="blur" src={cardboard_box} alt="" className="img-fluid" />
+                <LazyLoadImage
+                  effect="blur"
+                  src={delivery_man}
+                  alt=""
+                  className="img-fluid"
+                />
               </div>
               <div className="col-md-6">
-                <h2 className="text-danger">Fast Delivery</h2>
+                <h2 className="about-headers">Fast Delivery</h2>
 
                 <div className="text-justify">
                   <p>
@@ -123,9 +142,20 @@ const Home = ({ scrollPosition }) => {
               </div>
             </div>
           </div>
+          <div style={{width:'fit-content'}} className="ms-auto me-5 mb-4">
+            <motion.button
+              animate={{ y: "0%", opacity: 1 }}
+              initial={{ y: "100%", opacity: 0 }}
+              transition={{ delay: 0.3 }}
+              whileHover={{ scale: 1.1 }}
+              className="btn btn-danger px-5 rounded-pill shadow top-banner-button border-0"
+            >
+              View Products
+            </motion.button>
+          </div>
         </div>
       </div>
-      
+
       <BottomBanner store={store} />
     </>
   );
