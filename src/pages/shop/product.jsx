@@ -6,11 +6,11 @@ import { motion, useAnimation, useInView } from "framer-motion";
 import { useRef, useEffect } from "react";
 import "react-lazy-load-image-component/src/effects/blur.css";
 
-const Product = ({ product, scrollPosition}) => {
+const Product = ({ product, scrollPosition }) => {
   const viewRef = useRef(null);
   const isInView = useInView(viewRef, { once: true });
   const mainControls = useAnimation();
-  const hovercontrols = useAnimation()
+  const hovercontrols = useAnimation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -28,25 +28,28 @@ const Product = ({ product, scrollPosition}) => {
   return (
     <div ref={viewRef} className={`col-md-3 col-6`}>
       <motion.div
-        variants={{ hidden: { opacity: 0, rotate:45, x: 30 }, visible: { opacity: 1, rotate:0, x: 0 } }}
+        variants={{
+          hidden: { opacity: 0, rotate: 45, x: 30 },
+          visible: { opacity: 1, rotate: 0, x: 0 },
+        }}
         initial="hidden"
         animate={mainControls}
-        transition={{delay: 1}}
+        transition={{ delay: 1 }}
         className="col"
       >
         <motion.div
           className="card col-10 mx-auto product-card my-4"
           onClick={handleProductNav}
-          onMouseEnter={()=>hovercontrols.start('hovering')}
-          onMouseLeave={()=>hovercontrols.start('normal')}
+          onMouseEnter={() => hovercontrols.start("hovering")}
+          onMouseLeave={() => hovercontrols.start("normal")}
         >
           <motion.img
-            variants={{normal: {scale: 0.8}, hovering:{scale: 1}}}
-            initial={'normal'}
+            variants={{ normal: { scale: 0.8 }, hovering: { scale: 1 } }}
+            initial={"normal"}
             animate={hovercontrols}
-            transition={{type: 'spring', stiffness: 500}}
+            transition={{ type: "spring", stiffness: 200 }}
             src={product.image}
-            className="img-fluid card-img shadow"
+            className="img-fluid card-img"
             scrollPosition={scrollPosition}
           />
 

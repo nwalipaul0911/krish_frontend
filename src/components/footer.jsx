@@ -29,7 +29,7 @@ const Footer = () => {
                 </li>
                 <li className="nav-item">
                   <Link to="/terms-&-conditions" className="nav-link pb-3">
-                    T & C
+                    Terms & Policies
                   </Link>
                 </li>
               </ul>

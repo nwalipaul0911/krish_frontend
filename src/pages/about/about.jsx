@@ -23,7 +23,7 @@ const About = () => {
       {abouts.map((about, index) => (
         <div key={index}>
           <i className="fa-solid fa-quote-left fs-1 text-danger"></i>
-          <p>{about.about.slice(0, 1).toUpperCase() + about.about.slice(1)}</p>
+          <p className="fs-3">{about.about.slice(0, 1).toUpperCase() + about.about.slice(1)}</p>
           <div style={{ width: "fit-content" }} className="ms-auto">
             <i className="fa-solid fa-quote-right fs-1 text-danger"></i>
           </div>

@@ -7,9 +7,7 @@
 .card:hover{
   cursor: pointer;
 }
-.card-img{
-  background-color: rgb(183, 181, 181);;
-}
+
 
 @media screen and (max-width:650px) {
   .product-button{

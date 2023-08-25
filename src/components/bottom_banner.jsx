@@ -3,8 +3,9 @@ import { useState, useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { modifyCart } from "../slices/cart_slice";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import placeholder from "../assets/images/placeholder.webp";
 
 const BottomBanner = ({ store, scrollPosition }) => {
   const url = import.meta.env.VITE_BACKEND_URL;
@@ -12,6 +13,7 @@ const BottomBanner = ({ store, scrollPosition }) => {
   const [banners, setBanners] = useState([]);
   const [setSidebarState] = useOutletContext();
   const [carouselstate, setCarouselState] = useState(0);
+  const bannerControls = useAnimation();
 
   useEffect(() => {
     setTimeout(() => {
@@ -45,25 +47,36 @@ const BottomBanner = ({ store, scrollPosition }) => {
               <div
                 className="row g-0 bottom-banner rounded shadow"
                 key={index}
+                onMouseEnter={() => {
+                  bannerControls.start("animated");
+                }}
+                onMouseLeave={() => {
+                  bannerControls.start("normal");
+                }}
               >
-                <div className="col-12 col-md-6" >
+                <div className="col-12 col-md-6">
                   <motion.div
                     className="mx-auto col-7 py-3 banner-img-container"
-                    initial={"hidden"}
-                    animate={'visible'}
                     variants={{
-                      hidden: { x: 100, opacity: 0 },
-                      visible: { x: 0, opacity: 1 },
+                      animated: { scale: 1.2, x: 50 },
+                      normal: { scale: 1, x: 0 },
                     }}
-                    transition={{ delay: 2, duration: 1 }}
+                    animate={bannerControls}
+                    initial={"normal"}
+                    transition={{
+                      delay: bannerControls == "normal" ? 2 : 0,
+                      duration: 1,
+                      type: "spring",
+                      stiffness: 500,
+                    }}
                   >
                     <LazyLoadImage
                       src={banner?.image}
                       alt="..."
                       scrollPosition={scrollPosition}
-                      className="banner-image img-fluid shadow"
+                      className="banner-image img-fluid"
                       effect="blur"
-                      placeholderSrc=""
+                      placeholderSrc={placeholder}
                     />
                   </motion.div>
                 </div>
@@ -75,9 +88,7 @@ const BottomBanner = ({ store, scrollPosition }) => {
                     <h1 className="footer-banner-large-text">
                       {banner.large_text}
                     </h1>
-                    <p className="footer-banner-description">
-                      {banner.title}
-                    </p>
+                    <p className="footer-banner-description">{banner.title}</p>
                   </div>
                   <div
                     className="pt-3 mx-auto"

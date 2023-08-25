@@ -32,7 +32,7 @@ const TopBanner = ({ store }) => {
           (banner, index) =>
             index == 0 && (
               <div className="row g-0 " key={index}>
-                <div className="col-12 col-md-6 pt-5">
+                <div className="col-12 col-md-6">
                   <div className="ps-5">
                     <motion.p
                       animate={{ opacity: 1 }}
@@ -43,27 +43,27 @@ const TopBanner = ({ store }) => {
                       {banner.title}
                     </motion.p>
                     <motion.h1
-                      animate={{ x: "0%", opacity:1 }}
-                      initial={{ x: "-100%", opacity:0 }}
+                      animate={{ x: "0%", opacity: 1 }}
+                      initial={{ x: "-100%", opacity: 0 }}
                       transition={{ delay: 1.6 }}
                       className="text-white banner-large-text"
                     >
                       {banner.large_text}
                     </motion.h1>
                     <motion.p
-                      animate={{ x: "0%" }}
-                      initial={{ x: "-100%" }}
+                      animate={{ x: "0%", opacity: 1 }}
+                      initial={{ x: "-100%", opacity: 0 }}
                       transition={{ delay: 1.8 }}
                       className="banner-description"
                     >
                       {banner.small_text}
                     </motion.p>
 
-                    <div className="pt-3">
+                    <div className="pb-5">
                       <motion.button
-                        animate={{ y: "0%", opacity:1 }}
-                        initial={{ y: "100%", opacity:0 }}
-                        transition={{delay:0.3}}
+                        animate={{ y: "0%", opacity: 1 }}
+                        initial={{ y: "100%", opacity: 0 }}
+                        transition={{ delay: 0.3 }}
                         whileHover={{ scale: 1.1 }}
                         className="btn btn-danger px-5 rounded-pill shadow top-banner-button border-0"
                         onClick={() => handleBuyNow(banner.product)}
@@ -76,7 +76,7 @@ const TopBanner = ({ store }) => {
                 <div className="col-12 col-md-6 mt-5 mt-md-0">
                   <motion.div
                     className="mx-auto col-10 banner-img-container"
-                    animate={{ opacity: 1}}
+                    animate={{ opacity: 1 }}
                     initial={{ opacity: 0 }}
                     transition={{ delay: 2, duration: 1 }}
                   >

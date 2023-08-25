@@ -12,19 +12,22 @@
   -webkit-text-size-adjust: 100%;
 }
 ::placeholder{
-  font-family: 'Arapey', serif;
+  font-family: 'poppins', sans-serif;
 }
 h1,h2,h3,h4,h5,h6{
-  font-family: 'Arapey', serif;
+  font-family: 'poppins', sans-serif;
 }
 p,span,small,i, a, label{
   font-family: 'poppins' sans-serif;
 }
 button, .btn{
-  font-family: 'Arapey', serif;
+  font-family: 'poppins', sans-serif;
 }
 .bg-danger{
   background-color: #e9018d !important;
+}
+.bg-danger-2{
+  background-color: rgb(215,78,161) !important;
 }
 .btn-danger{
   background-color: #e9018d;
@@ -34,4 +37,8 @@ button, .btn{
 }
 .text-danger{
   color: #e9018d !important;
+}
+
+.fa-solid:hover{
+  cursor: pointer;
 }

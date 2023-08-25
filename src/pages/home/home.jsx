@@ -29,9 +29,9 @@ const Home = ({ scrollPosition }) => {
     <>
       <TopBanner store={store} />
       <About />
-      <div className="container-fluid py-5">
+      <div className="container-fluid">
         <div className="row col-md-10 mx-auto">
-          <h1 className="text-center text-dark my-4">Featured Products</h1>
+          <h1 className="text-center text-dark my-3">Featured Products</h1>
           {currentItems.map((product, index) => (
             <Product
               key={index}
@@ -124,13 +124,13 @@ const Home = ({ scrollPosition }) => {
 
                 <div className="text-justify">
                   <p>
-                    At Krishbeauty, we are committed to providing you with an
+                    We are committed to providing you with an
                     exceptional shopping experience, and that includes
                     lightning-fast delivery. We understand that waiting for your
                     beauty essentials is not an option, which is why we
                     prioritize speed and efficiency in getting your products to
                     you. Our dedicated logistics network ensures that your
-                    orders are processed swiftly and shipped without delay. Your
+                    orders are processed swiftly and delivered without delay. Your
                     time is valuable, and we're here to make sure you receive
                     your orders promptly, so you can keep looking and feeling
                     your best with minimal wait.

@@ -6,10 +6,7 @@ import { useMemo } from "react";
 import { removeFromCart } from "../slices/cart_slice";
 const CartItem = ({ item }) => {
   const dispatch = useDispatch();
-  const subtotal = useMemo(
-    () => item.price * item.quantity,
-    [item]
-  );
+  const subtotal = useMemo(() => item.price * item.quantity, [item]);
   useEffect(() => {
     subtotal == 0 ? dispatch(removeFromCart(item)) : null;
   }, [subtotal]);
@@ -19,7 +16,8 @@ const CartItem = ({ item }) => {
       <div className="cart-item col-10 mx-auto my-3 position-relative pb-3">
         <i
           className="fa-solid fa-x position-absolute top-0 end-0 cart-item-control"
-          onClick={() => dispatch(removeFromCart(item))} title="Remove from cart"
+          onClick={() => dispatch(removeFromCart(item))}
+          title="Remove from cart"
         ></i>
         <div className="container-fluid">
           <div className="row">
@@ -31,11 +29,10 @@ const CartItem = ({ item }) => {
                 <small className="item-name" style={{ display: "block" }}>
                   {item.name}
                 </small>
-                <small
-                  className="text-dark fw-bold"
-                  style={{ display: "block" }}
-                >
-                  N {item.price}
+                <small className="text-dark my-2" style={{ display: "block" }}>
+                  <span className="fw-bold">N{subtotal}</span>
+                  
+                  <span className="text-secondary ms-3">N{item.price}/unit</span>
                 </small>
                 <div className="mb-3">
                   <input
@@ -54,10 +51,6 @@ const CartItem = ({ item }) => {
               </div>
             </div>
           </div>
-          <i className="subtotal fs-4">Subtotal </i>
-          <p className="text-dark" id="subtotal">
-            N {subtotal}
-          </p>
         </div>
       </div>
     </>

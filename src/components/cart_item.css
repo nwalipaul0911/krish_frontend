@@ -3,7 +3,11 @@
   border: 0.5px rgb(206, 206, 206) solid;
   outline: none;
 }
-input[type=number]::-webkit-inner-spin-button { opacity: 1; }
+input[type=number]::-webkit-inner-spin-button { 
+  opacity: 1; 
+  width: 5rem; 
+  background-color: black;
+}
 
 
 .cart-item{
