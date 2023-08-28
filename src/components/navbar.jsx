@@ -21,7 +21,7 @@ const Navbar = ({ setSidebarState }) => {
     searchResult.length > 0 ? "search-panel-open" : "search-panel-close";
   return (
     <>
-      <div className="d-flex bg-dark jusitfy-content-between col-md-12 col-sm-none py-2 ">
+      <div className="d-flex bg-dark jusitfy-content-between col-md-12 col-sm-none py-2 " id='#'>
         <div className="ps-5 col-6">
           <div className="row">
             <motion.a
@@ -137,7 +137,7 @@ const Navbar = ({ setSidebarState }) => {
             <div
               className={`col-12 search-results bg-light py-2 ${search_results_panel} shadow`}
             >
-              <ul className="p-0">
+              <ul className="p-0 result-container">
                 {searchResult.map((item, index) => (
                   <li
                     key={index}

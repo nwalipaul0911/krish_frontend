@@ -27,7 +27,7 @@ const TopBanner = ({ store }) => {
   };
   return (
     <>
-      <div className="container-fluid top-banner py-5">
+      <div className="container-fluid top-banner position-relative py-5">
         {banners?.map(
           (banner, index) =>
             index == 0 && (
@@ -61,10 +61,10 @@ const TopBanner = ({ store }) => {
 
                     <div className="pb-5">
                       <motion.button
-                        animate={{ y: "0%", opacity: 1 }}
-                        initial={{ y: "100%", opacity: 0 }}
-                        transition={{ delay: 0.3 }}
-                        whileHover={{ scale: 1.1 }}
+                        animate={{ y: "0%", opacity:1 }}
+                        initial={{ y: "100%", opacity:0 }}
+                        transition={{duration:1, type:"spring", stiffness: 500}}
+                        whileHover={{ scale: [1.05,1,1.05, 1] }}
                         className="btn btn-danger px-5 rounded-pill shadow top-banner-button border-0"
                         onClick={() => handleBuyNow(banner.product)}
                       >

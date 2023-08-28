@@ -58,8 +58,8 @@ const BottomBanner = ({ store, scrollPosition }) => {
                   <motion.div
                     className="mx-auto col-7 py-3 banner-img-container"
                     variants={{
-                      animated: { scale: 1.2, x: 50 },
-                      normal: { scale: 1, x: 0 },
+                      animated: { scale: 1.2 },
+                      normal: { scale: 1 },
                     }}
                     animate={bannerControls}
                     initial={"normal"}
@@ -94,12 +94,16 @@ const BottomBanner = ({ store, scrollPosition }) => {
                     className="pt-3 mx-auto"
                     style={{ width: "fit-content" }}
                   >
-                    <button
+                    <motion.button
                       className="btn btn-danger rounded-pill px-5 shadow"
+                      animate={{ y: "0%", opacity: 1 }}
+                      initial={{ y: "100%", opacity: 0 }}
+                      transition={{ duration: 1, type: "spring", stiffness: 500 }}
+                      whileHover={{ scale: [1.05, 1, 1.05, 1] }}
                       onClick={() => handleBuyNow(banner.product)}
                     >
                       {banner.button_text}
-                    </button>
+                    </motion.button>
                   </div>
                 </div>
               </div>

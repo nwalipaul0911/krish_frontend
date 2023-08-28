@@ -5,6 +5,7 @@
   background:linear-gradient(to bottom right, rgba(215, 215, 215, 0.3),rgba(183, 181, 181, 0.688),#330042);
   height: fit-content;
   clip-path: polygon(0 0, 100% 0, 100% 95%, 55% 100%, 0 90%);
+  z-index: 0;
 }
 .banner-small-text{
   font-size: 2rem;
@@ -23,8 +24,6 @@
 }
 @media screen and (max-width:650px) {
   .top-banner{
-    background:linear-gradient(to bottom right, rgba(215, 215, 215, 0.3),rgba(183, 181, 181, 0.688),rgb(0, 0, 0));
-    height: fit-content;
     clip-path: polygon(0 0, 100% 0, 100% 98%, 55% 100%, 0 96%);
   }
 }

@@ -17,20 +17,30 @@ const Footer = () => {
               <h5 className="text-dark mb-3">Navigation</h5>
               <ul className="ps-0">
                 <li className="nav-item">
-                  <Link to="/" className="nav-link pb-3">
+                  <Link to="/#" className="nav-link pb-3">
                     Home
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/shop/#" className="nav-link pb-3">
+                    Shop
                   </Link>
                 </li>
 
                 <li className="nav-item">
-                  <Link to="/contact" className="nav-link pb-3">
+                  <Link to="/contact/#" className="nav-link pb-3">
                     Contact Us
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/terms-&-conditions" className="nav-link pb-3">
+                  <Link to="/terms-&-conditions/#" className="nav-link pb-3">
                     Terms & Policies
                   </Link>
+                </li>
+                <li className="nav-item">
+                  <a href="#" className="btn btn-sm btn-secondary rounded-pill border-0">
+                    Top <i className="fa-solid fa-arrow-up"></i>
+                  </a>
                 </li>
               </ul>
             </div>

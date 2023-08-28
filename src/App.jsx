@@ -7,17 +7,16 @@ import Footer from "./components/footer";
 
 function App() {
   const sidebarState = localStorage.getItem("sidebar");
-  const [cartView, setCartView] = useState(false
-  );
+  const [cartView, setCartView] = useState(sidebarState);
   const setSidebarState = () => {
-    setCartView(!cartView)
+    setCartView(!cartView);
   };
 
   return (
     <div className="App position relative">
       <Navbar setSidebarState={setSidebarState} />
       <Cart setSidebarState={setSidebarState} cartView={cartView} />
-      <Outlet context={[setSidebarState]}/>
+      <Outlet context={[setSidebarState]} />
       <Footer />
     </div>
   );

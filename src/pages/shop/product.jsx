@@ -10,7 +10,7 @@ const Product = ({ product, scrollPosition }) => {
   const viewRef = useRef(null);
   const isInView = useInView(viewRef, { once: true });
   const mainControls = useAnimation();
-  const hovercontrols = useAnimation();
+  const hoverControls = useAnimation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -32,39 +32,45 @@ const Product = ({ product, scrollPosition }) => {
           hidden: { opacity: 0, rotate: 45, x: 30 },
           visible: { opacity: 1, rotate: 0, x: 0 },
         }}
+        onMouseEnter={() => hoverControls.start("hovering")}
+        onMouseLeave={() => hoverControls.start("normal")}
         initial="hidden"
         animate={mainControls}
         transition={{ delay: 1 }}
-        className="col"
+        className="col border"
       >
         <motion.div
-          className="card col-10 mx-auto product-card my-4"
+          className="card product-card"
           onClick={handleProductNav}
-          onMouseEnter={() => hovercontrols.start("hovering")}
-          onMouseLeave={() => hovercontrols.start("normal")}
+          onMouseEnter={() => hoverControls.start("hovering")}
+          onMouseLeave={() => hoverControls.start("normal")}
         >
-          <motion.img
-            variants={{ normal: { scale: 0.8 }, hovering: { scale: 1 } }}
-            initial={"normal"}
-            animate={hovercontrols}
-            transition={{ type: "spring", stiffness: 200 }}
-            src={product.image}
-            className="img-fluid card-img"
-            scrollPosition={scrollPosition}
-          />
+          <div className="card-img rounded-0">
+            <motion.img
+              src={`${product.image}`}
+              alt="..."
+              effect="blur"
+              className="img-fluid"
+              placeholderSrc=""
+              scrollPosition={scrollPosition}
+              variants={{ normal: { scale: 0.8 }, hovering: { scale: 1 } }}
+              animate={hoverControls}
+              transition={{ type: "tween"}}
+            />
+          </div>
 
-          <div className="pt-2">
-            <div className=" text-center">
+          <div className="py-2 card-body">
+            <div className="">
               <div>
-                <small className="">{product.name}</small>
+                <small className="text-secondary">{product.name}</small>
               </div>
 
-              <small className="fw-bold">N {product.price}</small>
+              <i className="">N {product.price}</i>
             </div>
 
             <div className="mx-auto">
               <button
-                className="btn btn-sm btn-outline-dark rounded-pill col-12 product-button"
+                className="btn btn-sm btn-danger rounded-pill col-12 product-button mt-2"
                 onClick={(e) => handleCartIncrement(e)}
               >
                 Add to cart

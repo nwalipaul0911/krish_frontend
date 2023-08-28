@@ -14,10 +14,10 @@ input.search{
   position: absolute;
   top:110%;
   border-radius: 10px;
-  z-index: 1;
 }
+
 .search-panel-open{
-  visibility: open;
+  visibility: visible;
 }
 .search-panel-close{
   visibility: hidden;

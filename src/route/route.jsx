@@ -50,7 +50,15 @@ const Route = () => {
         },
         {
           path: 'products/:id',
-          element: <Item />
+          element: <Item />,
+          loader: async({params})=>{
+            let id = params.id
+            const res = await fetch(`${url}/products`)
+            if(res.status== 200){
+              const data = await res.json()
+              return data 
+            }
+          }
         },
         {
           path: 'checkout',

@@ -29,7 +29,7 @@ const Home = ({ scrollPosition }) => {
     <>
       <TopBanner store={store} />
       <About />
-      <div className="container-fluid">
+      <div className="container">
         <div className="row col-md-10 mx-auto">
           <h1 className="text-center text-dark my-3">Featured Products</h1>
           {currentItems.map((product, index) => (
