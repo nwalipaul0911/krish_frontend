@@ -1,8 +1,8 @@
 import "./banner.css";
 import { motion, useAnimation, useInView } from "framer-motion";
 import { useState, useEffect } from "react";
-import { useDispatch, useNavigate } from "react-redux";
-import { useOutletContext } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useOutletContext, useNavigate } from "react-router-dom";
 import { modifyCart } from "../slices/cart_slice";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
