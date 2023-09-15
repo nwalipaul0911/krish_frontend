@@ -37,7 +37,7 @@ const Product = ({ product, scrollPosition }) => {
         initial="hidden"
         animate={mainControls}
         transition={{ delay: 1 }}
-        className="col border"
+        className="col border-0"
       >
         <motion.div
           className="card product-card"
@@ -53,7 +53,7 @@ const Product = ({ product, scrollPosition }) => {
               className="img-fluid"
               placeholderSrc=""
               scrollPosition={scrollPosition}
-              variants={{ normal: { scale: 0.8 }, hovering: { scale: 1 } }}
+              variants={{ normal: { scale: 0.9 }, hovering: { scale: 1 } }}
               initial={'normal'}
               animate={hoverControls}
               transition={{ type: "tween"}}
