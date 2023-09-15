@@ -1,7 +1,7 @@
 import "./banner.css";
 import { useState, useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useNavigate } from "react-redux";
 import { modifyCart } from "../slices/cart_slice";
 import { motion, useAnimation } from "framer-motion";
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -10,6 +10,7 @@ import placeholder from "../assets/images/placeholder.webp";
 const BottomBanner = ({ store, scrollPosition }) => {
   const url = import.meta.env.VITE_BACKEND_URL;
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const [banners, setBanners] = useState([]);
   const [setSidebarState] = useOutletContext();
   const [carouselstate, setCarouselState] = useState(0);
@@ -36,7 +37,7 @@ const BottomBanner = ({ store, scrollPosition }) => {
   const handleBuyNow = (product_id) => {
     const product = store.products.find((product) => product.id == product_id);
     dispatch(modifyCart({ ...product, quantity: 1 }));
-    setSidebarState();
+    navigate('/checkout')
   };
   return (
     <>

@@ -55,6 +55,7 @@ const Product = ({ product, scrollPosition }) => {
               scrollPosition={scrollPosition}
               variants={{ normal: { scale: 0.8 }, hovering: { scale: 1 } }}
               animate={hoverControls}
+              initial={'normal'}
               transition={{ type: "tween"}}
             />
           </div>

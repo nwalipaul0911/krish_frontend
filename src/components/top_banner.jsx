@@ -1,7 +1,7 @@
 import "./banner.css";
 import { motion, useAnimation, useInView } from "framer-motion";
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useNavigate } from "react-redux";
 import { useOutletContext } from "react-router-dom";
 import { modifyCart } from "../slices/cart_slice";
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -12,6 +12,7 @@ const TopBanner = ({ store }) => {
   const [banners, setBanners] = useState([]);
   const [setSidebarState] = useOutletContext();
   const [carouselstate, setCarouselState] = useState(0);
+  const navigate = useNavigate()
   useEffect(() => {
     getBannerdetails();
   }, []);
@@ -23,7 +24,7 @@ const TopBanner = ({ store }) => {
   const handleBuyNow = (product_id) => {
     const product = store.products.find((product) => product.id == product_id);
     dispatch(modifyCart({ ...product, quantity: 1 }));
-    setSidebarState();
+    navigate('/checkout')
   };
   return (
     <>
