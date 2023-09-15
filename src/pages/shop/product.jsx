@@ -57,6 +57,7 @@ const Product = ({ product, scrollPosition }) => {
               initial={'normal'}
               animate={hoverControls}
               transition={{ type: "tween"}}
+              style={{aspectRatio: '1/1'}}
             />
           </div>
 

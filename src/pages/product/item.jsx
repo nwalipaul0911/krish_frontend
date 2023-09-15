@@ -29,7 +29,7 @@ const Item = () => {
         <div className="col-md-6">
           <div className="col-10 ms-md-auto rounded card">
             <div className="card-img">
-              <img src={item.image} alt="" className="img-fluid" />
+              <img src={item.image} alt="" className="img-fluid" style={{aspectRatio: '1/1'}}/>
             </div>
           </div>
         </div>
