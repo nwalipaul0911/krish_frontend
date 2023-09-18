@@ -61,7 +61,7 @@ const Shop = ({ scrollPosition }) => {
           />
         </div>
         <div className="col-md-3 bg-light p-3 border">
-          <Filter store={store.products} setFiltered={setFiltered} />
+          <Filter store={store.products} setFiltered={setFiltered} setItemOffset={setItemOffset} />
         </div>
       </div>
       <BottomBanner />
