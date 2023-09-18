@@ -15,7 +15,7 @@ const About = () => {
     }
   };
   return (
-    <div className="container-fluid bg-light my-5 shadow p-5 about-container">
+    <div className="container-fluid bg-light mb-5 shadow p-5 about-container">
       <div className="">
         <h1 className="text-center">About Us</h1>
       </div>
