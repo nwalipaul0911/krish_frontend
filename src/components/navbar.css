@@ -38,8 +38,7 @@ span.badge{
   font-size: xx-small;
 }
 .navbar{
-  position:sticky;
-  top:0;
+  z-index: 99;
 }
 .navbar-toggler:focus{
   box-shadow: none;

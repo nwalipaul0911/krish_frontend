@@ -21,7 +21,7 @@ const Navbar = ({ setSidebarState }) => {
     searchResult.length > 0 ? "search-panel-open" : "search-panel-close";
   return (
     <>
-      <div className="d-flex bg-dark jusitfy-content-between col-md-12 col-sm-none py-2 " id='#'>
+      <div className="d-flex bg-dark jusitfy-content-between col-md-12 col-sm-none py-2 " id='#' >
         <div className="ps-5 col-6">
           <div className="row">
             <motion.a
