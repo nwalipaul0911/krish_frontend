@@ -17,7 +17,7 @@ const Shop = ({ scrollPosition }) => {
   useEffect(() => {
     dispatch(setProducts(store.products));
   }, [store]);
-  const itemsPerPage = 20;
+  const itemsPerPage = 12;
   const [itemOffset, setItemOffset] = useState(0);
   const endOffset = itemOffset + itemsPerPage;
   const currentItems = filtered.slice(itemOffset, endOffset);
