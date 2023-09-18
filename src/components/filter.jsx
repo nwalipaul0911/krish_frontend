@@ -27,7 +27,7 @@ const Filter = ({ store, setFiltered }) => {
   }, [currCategory]);
 
   return (
-    <div className="position-sticky top-0" style={{maxHeight: '70vh'}}>
+    <div className="position-sticky top-0" style={{ maxHeight: "70vh" }}>
       <h5 className="text-center">
         Filter by category <i className="fa-solid fa-filter"></i>
       </h5>
